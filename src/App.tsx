@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import { Github, Linkedin, Mail, Phone, Code2, BookOpen, User, Briefcase, Send, Heart, Moon, Sun, ExternalLink, Terminal } from 'lucide-react';
 import DecryptedText from './DecryptedText';
 
@@ -94,8 +94,7 @@ function App() {
           <div className="max-w-4xl mx-auto text-center">
             <div className="mb-8">
               <img
-                // src='https://allanim.com/images/allan.png'
-                src='../public/photo.png'
+                src='https://res.cloudinary.com/dvwmoh776/image/upload/v1738342404/yes227p0x7yjd0n4qlum.jpg'
                 alt="Anmol Mittal"
                 className="w-64 h-80 rounded-full border-4 border-blue-500 p-1 mx-auto mb-6 hover:rotate-3 transition-transform duration-300"
               />
@@ -117,9 +116,10 @@ function App() {
                   <ExternalLink className="w-4 h-4" />
                 </a>
                 <a
-                  href="../public/resume.pdf"  // Path to the resume file
-                  download="Anmol_Mittal_Resume.pdf" // File name for download
-                  className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-500  transition-colors"
+                  href="https://your-resume-link.com/resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors"
                 >
                   Download Resume
                 </a>
