@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Github, Linkedin, Mail, Phone, Code2, BookOpen, User, Briefcase, Send, GraduationCap as Graduation, Heart, Moon, Sun, ExternalLink, Terminal } from 'lucide-react';
+import  { useState } from 'react';
+import { Github, Linkedin, Mail, Phone, Code2, BookOpen, User, Briefcase, Send, Heart, Moon, Sun, ExternalLink, Terminal } from 'lucide-react';
 import DecryptedText from './DecryptedText';
 
 function App() {
   const [darkMode, setDarkMode] = useState(true);
-  const [text, setText] = useState('');
   const [activeTab, setActiveTab] = useState('about');
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const fullText = 'Full Stack MERN Developer | React Specialist';

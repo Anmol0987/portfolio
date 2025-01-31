@@ -56,9 +56,10 @@ export default function DecryptedText({
     const availableChars = useOriginalCharsOnly
       ? Array.from(new Set(text.split(''))).filter((char) => char !== ' ')
       : characters.split('')
-
+//@ts-ignore
     const shuffleText = (originalText, currentRevealed) => {
       if (useOriginalCharsOnly) {
+        //@ts-ignore
         const positions = originalText.split('').map((char, i) => ({
           char,
           isSpace: char === ' ',
@@ -67,7 +68,9 @@ export default function DecryptedText({
         }))
 
         const nonSpaceChars = positions
+        //@ts-ignore
           .filter((p) => !p.isSpace && !p.isRevealed)
+          //@ts-ignore
           .map((p) => p.char)
 
         for (let i = nonSpaceChars.length - 1; i > 0; i--) {
@@ -77,7 +80,7 @@ export default function DecryptedText({
 
         let charIndex = 0
         return positions
-          .map((p) => {
+          .map((p:any) => {
             if (p.isSpace) return ' '
             if (p.isRevealed) return originalText[p.index]
             return nonSpaceChars[charIndex++]
@@ -86,7 +89,7 @@ export default function DecryptedText({
       } else {
         return originalText
           .split('')
-          .map((char, i) => {
+          .map((char:any, i:any) => {
             if (char === ' ') return ' '
             if (currentRevealed.has(i)) return originalText[i]
             return availableChars[Math.floor(Math.random() * availableChars.length)]
@@ -107,6 +110,7 @@ export default function DecryptedText({
               setDisplayText(shuffleText(text, newRevealed))
               return newRevealed
             } else {
+                //@ts-ignore
               clearInterval(interval)
               setIsScrambling(false)
               return prevRevealed
@@ -115,6 +119,7 @@ export default function DecryptedText({
             setDisplayText(shuffleText(text, prevRevealed))
             currentIteration++
             if (currentIteration >= maxIterations) {
+                //@ts-ignore
               clearInterval(interval)
               setIsScrambling(false)
               setDisplayText(text)
@@ -130,6 +135,7 @@ export default function DecryptedText({
     }
 
     return () => {
+        //@ts-ignore
       if (interval) clearInterval(interval)
     }
   }, [
@@ -146,7 +152,9 @@ export default function DecryptedText({
   useEffect(() => {
     if (animateOn !== 'view') return
 
+//@ts-ignore
     const observerCallback = (entries) => {
+        //@ts-ignore
       entries.forEach((entry) => {
         if (entry.isIntersecting && !hasAnimated) {
           setIsHovering(true)
@@ -190,7 +198,8 @@ export default function DecryptedText({
       <span className="sr-only">{displayText}</span>
 
       <span aria-hidden="true">
-        {displayText.split('').map((char, index) => {
+      
+        {displayText.split('').map((char:any, index:any) => {
           const isRevealedOrDone =
             revealedIndices.has(index) || !isScrambling || !isHovering
 
