@@ -19,37 +19,38 @@ function App() {
 
   const projects = [
     {
-      title: "Blog Website",
-      description: "A modern blog platform built with React and TypeScript, featuring a monorepo structure and robust validation.",
-      tech: ["React", "TypeScript", "Tailwind CSS", "Hono", "Prisma", "Zod"],
+      title: "SketchCraft",
+      description: "SketchCraft is a monorepo app managed with TurboRepo, featuring a Next.js frontend with real-time WebSocket interactivity, a Node.js/Express backend secured via JWT, and Prisma for type-safe database operations.It seamlessly integrates these technologies to deliver a scalable, efficient drawing canvas for creating and sharing shapes and freehand sketches.",
+      tech: ["TurboRepo", "NextJs", "Web Socket", "nodeJs", "Express", "JWT", "Prisma"],
       image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&q=80",
-      github: "#",
+      github: "https://github.com/Anmol0987/draw_app",
+      demo: "#"
+    },
+    {
+      title: "Simple Secure Chat",
+      description: " A real-time chat application allowing users to create and join rooms for secure one-on-one and group chats. Built with TurboRepo, Next.js, WebSocket, Prisma, JWT, Node.js, Express.js, and Tailwind CSS for seamless and secure communication.",
+      tech: ["TurboRepo", 'NextJS', 'Websocket', "Prisma", "JWT", "nodejs", "Express.js", "Tailwind CSS"],
+      image: "https://images.unsplash.com/photo-1580519542036-c47de6196ba5?auto=format&fit=crop&w=800&q=80",
+      github: "https://github.com/Anmol0987/chatApp-turborepo-nextJs-prisma-websocket",
+      demo: "#"
+    },
+    {
+      title: "Second Brain",
+      description: "Developed Second Brain, a full-stack web application that enables users to sign in/up, embed and manage YouTube and Twitter content, and share personalized pages via unique links, using React.js, Tailwind CSS, Node.js, Express.js, JWT, MongoDB, and React Bits.",
+      tech: ["React.Js", "Tailwind Css", "NodeJs", "ExpressJs", "JWT", "MongooDB", "React Bits."],
+      image: "https://images.unsplash.com/photo-1466637574441-749b8f19452f?auto=format&fit=crop&w=800&q=80",
+      github: "https://github.com/Anmol0987/Second-Brain",
       demo: "#"
     },
     {
       title: "Recipe App",
       description: "A dynamic recipe management application with real-time updates and state management.",
-      tech: ["React", "TypeScript", "Tailwind CSS"],
+      tech: ["React", "JavaScript", "Tailwind CSS"],
       image: "https://images.unsplash.com/photo-1466637574441-749b8f19452f?auto=format&fit=crop&w=800&q=80",
-      github: "#",
-      demo: "#"
-    },
-    {
-      title: "Payment App (Paytm Clone)",
-      description: "A secure payment application with Mongoose transactions and user authentication.",
-      tech: ["React", "Node.js", "MongoDB", "Mongoose"],
-      image: "https://images.unsplash.com/photo-1580519542036-c47de6196ba5?auto=format&fit=crop&w=800&q=80",
-      github: "#",
-      demo: "#"
-    },
-    {
-      title: "Vibe",
-      description: "An internship project featuring React Flow-based workflow visualization and settings management.",
-      tech: ["React", "React Flow", "TypeScript"],
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80",
-      github: "#",
-      demo: "#"
+      github: "https://github.com/Anmol0987/recipe",
+      demo: "https://recipe-peach-ten.vercel.app/"
     }
+
   ];
 
   return (
@@ -94,7 +95,7 @@ function App() {
           <div className="max-w-4xl mx-auto text-center">
             <div className="mb-8">
               <img
-                src='https://res.cloudinary.com/dvwmoh776/image/upload/v1738342404/yes227p0x7yjd0n4qlum.jpg'
+                src='https://res.cloudinary.com/dvwmoh776/image/upload/v1738343815/raftj45nn8wrauknjxyd.png'
                 alt="Anmol Mittal"
                 className="w-64 h-80 rounded-full border-4 border-blue-500 p-1 mx-auto mb-6 hover:rotate-3 transition-transform duration-300"
               />
@@ -116,7 +117,7 @@ function App() {
                   <ExternalLink className="w-4 h-4" />
                 </a>
                 <a
-                  href="https://your-resume-link.com/resume.pdf"
+                  href="https://drive.google.com/file/d/1WbzWr4NXvZ8HsgJHiftckIgdC8CKxWMD/view?usp=sharing"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors"
@@ -231,7 +232,7 @@ function App() {
                 >
                   <div className="relative h-48">
                     <img
-                      src={project.image}
+                      // src={project.image}
                       alt={project.title}
                       className="w-full h-full object-cover"
                     />
