@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
-import { Terminal, Moon, Sun, Menu, X } from 'lucide-react';
+import { Terminal, Moon, Sun, Menu, X, Zap } from 'lucide-react';
 import { useState } from 'react';
-import DecryptedText from '../DecryptedText';
 
 interface HeaderProps {
   darkMode: boolean;
@@ -17,145 +16,194 @@ export default function Header({ darkMode, setDarkMode, activeTab, setActiveTab 
 
   return (
     <motion.header
-      className={`p-6 border-b ${
+      className={`fixed top-0 left-0 right-0 z-50 ${
         darkMode 
-          ? 'border-gray-800 bg-black/95 backdrop-blur-md shadow-lg shadow-cyan-500/10' 
-          : 'border-gray-200 bg-white/95 backdrop-blur-md shadow-lg shadow-blue-500/10'
-      } sticky top-0 z-40`}
+          ? 'bg-black/90 border-b border-cyan-400/20' 
+          : 'bg-white/90 border-b border-blue-200/50'
+      } backdrop-blur-md`}
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      <div className="container mx-auto flex items-center justify-between">
-        {/* Logo */}
-        <motion.div 
-          className="flex items-center gap-2 text-xl"
-          whileHover={{ scale: 1.05 }}
-          transition={{ type: "spring", stiffness: 400, damping: 10 }}
-        >
-          <motion.div
-            animate={{ 
-              rotate: [0, 360],
-              boxShadow: darkMode 
-                ? ["0 0 10px rgba(0,255,255,0.3)", "0 0 20px rgba(0,255,255,0.6)", "0 0 10px rgba(0,255,255,0.3)"]
-                : ["0 0 10px rgba(59,130,246,0.3)", "0 0 20px rgba(59,130,246,0.6)", "0 0 10px rgba(59,130,246,0.3)"]
-            }}
-            transition={{ 
-              rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-              boxShadow: { duration: 2, repeat: Infinity }
-            }}
-            className={`p-1 rounded-full ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`}
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo with embedded design */}
+          <motion.div 
+            className="flex items-center gap-3"
+            whileHover={{ scale: 1.02 }}
+            transition={{ type: "spring", stiffness: 400, damping: 10 }}
           >
-            <Terminal className="w-6 h-6" />
+            <div className="relative">
+              <motion.div
+                className={`p-2 ${
+                  darkMode 
+                    ? 'bg-cyan-400/10 border border-cyan-400/30' 
+                    : 'bg-blue-50 border border-blue-200'
+                }`}
+                style={{
+                  clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))'
+                }}
+                animate={{ 
+                  boxShadow: darkMode 
+                    ? ["0 0 0 rgba(0,255,255,0.3)", "0 0 20px rgba(0,255,255,0.6)", "0 0 0 rgba(0,255,255,0.3)"]
+                    : ["0 0 0 rgba(59,130,246,0.3)", "0 0 15px rgba(59,130,246,0.5)", "0 0 0 rgba(59,130,246,0.3)"]
+                }}
+                transition={{ duration: 3, repeat: Infinity }}
+              >
+                <Terminal className={`w-5 h-5 ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
+              </motion.div>
+              <motion.div
+                className={`absolute -top-1 -right-1 w-2 h-2 ${
+                  darkMode ? 'bg-cyan-400' : 'bg-blue-500'
+                }`}
+                animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+            </div>
+            
+            <div className="relative">
+              <span className={`text-lg font-bold tracking-wider ${
+                darkMode ? 'text-white' : 'text-gray-900'
+              }`}>
+                ANMOL.DEV
+              </span>
+              <motion.div
+                className={`absolute -bottom-1 left-0 h-px ${
+                  darkMode 
+                    ? 'bg-gradient-to-r from-cyan-400 to-transparent' 
+                    : 'bg-gradient-to-r from-blue-500 to-transparent'
+                }`}
+                initial={{ width: 0 }}
+                animate={{ width: "70%" }}
+                transition={{ delay: 0.5, duration: 0.8 }}
+              />
+            </div>
           </motion.div>
-          <DecryptedText
-            text="Anmol Mittal"
-            animateOn="view"
-            revealDirection="center"
-            speed={70}
-            className={darkMode ? 'text-white' : 'text-gray-900'}
-          />
-        </motion.div>
 
-        {/* Desktop Navigation */}
-        <div className="flex items-center gap-6">
-          <nav className="hidden md:flex gap-6">
+          {/* Desktop Navigation with embedded style */}
+          <div className="flex items-center gap-2">
+            <nav className="hidden md:flex items-center gap-1">
+              {navItems.map((item, index) => (
+                <motion.button
+                  key={item}
+                  onClick={() => setActiveTab(item)}
+                  className={`relative px-4 py-2 text-sm font-medium tracking-wide transition-all duration-300 ${
+                    activeTab === item
+                      ? darkMode
+                        ? 'text-cyan-400 bg-cyan-400/10'
+                        : 'text-blue-600 bg-blue-50'
+                      : darkMode
+                        ? 'text-gray-300 hover:text-cyan-400 hover:bg-cyan-400/5'
+                        : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
+                  }`}
+                  style={{
+                    clipPath: activeTab === item 
+                      ? 'polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px))'
+                      : 'none'
+                  }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  {item.toUpperCase()}
+                  {activeTab === item && (
+                    <motion.div
+                      className={`absolute bottom-0 left-1 right-1 h-px ${
+                        darkMode ? 'bg-cyan-400' : 'bg-blue-600'
+                      }`}
+                      layoutId="activeTab"
+                      transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                    />
+                  )}
+                </motion.button>
+              ))}
+            </nav>
+
+            {/* Theme Toggle with embedded design */}
+            <motion.button
+              onClick={() => setDarkMode(!darkMode)}
+              className={`relative p-2 ml-4 ${
+                darkMode
+                  ? 'bg-gray-900 border border-cyan-400/30 text-cyan-400'
+                  : 'bg-gray-100 border border-blue-200 text-blue-600'
+              } transition-all duration-300`}
+              style={{
+                clipPath: 'polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px))'
+              }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <motion.div
+                animate={{ rotate: darkMode ? 0 : 180 }}
+                transition={{ duration: 0.5 }}
+              >
+                {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+              </motion.div>
+              
+              <motion.div
+                className={`absolute -top-0.5 -right-0.5 w-1.5 h-1.5 ${
+                  darkMode ? 'bg-cyan-400' : 'bg-blue-500'
+                }`}
+                animate={{ opacity: [1, 0.3, 1] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              />
+            </motion.button>
+
+            {/* Mobile Menu Button */}
+            <motion.button
+              className={`md:hidden p-2 ml-2 ${
+                darkMode ? 'text-cyan-400' : 'text-blue-600'
+              }`}
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              whileTap={{ scale: 0.9 }}
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </motion.button>
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        <motion.div
+          className={`md:hidden overflow-hidden ${
+            darkMode ? 'bg-black/95 border-t border-cyan-400/20' : 'bg-white/95 border-t border-blue-200'
+          }`}
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ 
+            height: mobileMenuOpen ? 'auto' : 0,
+            opacity: mobileMenuOpen ? 1 : 0 
+          }}
+          transition={{ duration: 0.3 }}
+        >
+          <nav className="py-4 space-y-1">
             {navItems.map((item, index) => (
-              <motion.a
+              <motion.button
                 key={item}
-                href={`#${item}`}
-                onClick={() => setActiveTab(item)}
-                className={`relative px-3 py-2 rounded-lg transition-all duration-300 ${
+                onClick={() => {
+                  setActiveTab(item);
+                  setMobileMenuOpen(false);
+                }}
+                className={`block w-full text-left px-4 py-3 text-sm font-medium tracking-wide transition-all duration-300 ${
                   activeTab === item
                     ? darkMode
-                      ? 'text-cyan-400 bg-cyan-400/10 shadow-lg shadow-cyan-400/20'
-                      : 'text-blue-600 bg-blue-50 shadow-lg shadow-blue-500/20'
+                      ? 'text-cyan-400 bg-cyan-400/10 border-l-2 border-cyan-400'
+                      : 'text-blue-600 bg-blue-50 border-l-2 border-blue-500'
                     : darkMode
                       ? 'text-gray-300 hover:text-cyan-400 hover:bg-cyan-400/5'
                       : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
                 }`}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1 }}
+                whileTap={{ scale: 0.98 }}
               >
-                {item.charAt(0).toUpperCase() + item.slice(1)}
-                {activeTab === item && (
-                  <motion.div
-                    className={`absolute bottom-0 left-0 right-0 h-0.5 ${
-                      darkMode ? 'bg-cyan-400' : 'bg-blue-600'
-                    }`}
-                    layoutId="activeTab"
-                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                  />
-                )}
-              </motion.a>
+                {item.toUpperCase()}
+              </motion.button>
             ))}
           </nav>
-
-          {/* Theme Toggle */}
-          <motion.button
-            onClick={() => setDarkMode(!darkMode)}
-            className={`p-3 rounded-xl transition-all duration-300 ${
-              darkMode
-                ? 'bg-gray-800 text-yellow-400 hover:bg-gray-700 shadow-lg shadow-yellow-400/20 hover:shadow-yellow-400/40'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200 shadow-lg shadow-gray-500/20 hover:shadow-gray-500/40'
-            }`}
-            whileHover={{ scale: 1.1, rotate: 180 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-          </motion.button>
-
-          {/* Mobile Menu Button */}
-          <motion.button
-            className={`md:hidden p-2 rounded-lg ${
-              darkMode ? 'text-gray-300 hover:text-cyan-400' : 'text-gray-600 hover:text-blue-600'
-            }`}
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            whileTap={{ scale: 0.9 }}
-          >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </motion.button>
-        </div>
+        </motion.div>
       </div>
-
-      {/* Mobile Menu */}
-      <motion.div
-        className={`md:hidden mt-4 ${mobileMenuOpen ? 'block' : 'hidden'}`}
-        initial={{ opacity: 0, height: 0 }}
-        animate={{ 
-          opacity: mobileMenuOpen ? 1 : 0, 
-          height: mobileMenuOpen ? 'auto' : 0 
-        }}
-        transition={{ duration: 0.3 }}
-      >
-        <nav className="flex flex-col gap-2">
-          {navItems.map((item) => (
-            <motion.a
-              key={item}
-              href={`#${item}`}
-              onClick={() => {
-                setActiveTab(item);
-                setMobileMenuOpen(false);
-              }}
-              className={`px-4 py-3 rounded-lg transition-all duration-300 ${
-                activeTab === item
-                  ? darkMode
-                    ? 'text-cyan-400 bg-cyan-400/10'
-                    : 'text-blue-600 bg-blue-50'
-                  : darkMode
-                    ? 'text-gray-300 hover:text-cyan-400 hover:bg-cyan-400/5'
-                    : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
-              }`}
-              whileTap={{ scale: 0.95 }}
-            >
-              {item.charAt(0).toUpperCase() + item.slice(1)}
-            </motion.a>
-          ))}
-        </nav>
-      </motion.div>
     </motion.header>
   );
 }

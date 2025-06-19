@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { User, Code2, BookOpen, Briefcase, Mail, Heart } from 'lucide-react';
+import { User, Code2, BookOpen, Briefcase, Mail, Heart, Terminal, Zap } from 'lucide-react';
 
 // Components
 import LoadingScreen from './components/LoadingScreen';
@@ -59,7 +59,6 @@ function App() {
   ];
 
   useEffect(() => {
-    // Simulate loading time
     const timer = setTimeout(() => {
       setLoading(false);
     }, 3000);
@@ -74,8 +73,8 @@ function App() {
   return (
     <div className={`min-h-screen transition-all duration-500 ${
       darkMode 
-        ? 'bg-gradient-to-br from-black via-gray-900 to-black text-gray-100' 
-        : 'bg-gradient-to-br from-gray-50 via-white to-gray-50 text-gray-900'
+        ? 'bg-black text-gray-100' 
+        : 'bg-white text-gray-900'
     }`}>
       <AnimatePresence mode="wait">
         {loading && <LoadingScreen onComplete={handleLoadingComplete} />}
@@ -95,436 +94,633 @@ function App() {
               setActiveTab={setActiveTab} 
             />
 
-            <div className="container mx-auto px-6 py-12">
+            <main className="relative">
               <HeroSection darkMode={darkMode} />
 
               {/* About Section */}
               <AnimatedSection delay={0.2}>
-                <div id="about" className="mb-20">
-                  <div className="max-w-4xl mx-auto">
-                    <motion.div 
-                      className="flex items-center gap-3 mb-8"
-                      whileHover={{ x: 10 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                    >
-                      <User className={`w-8 h-8 ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
-                      <h2 className={`text-3xl font-bold ${
-                        darkMode 
-                          ? 'bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent' 
-                          : 'bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'
-                      }`}>
-                        About Me
-                      </h2>
-                    </motion.div>
-                    
-                    <motion.div 
-                      className={`rounded-2xl p-8 transition-all duration-500 ${
-                        darkMode 
-                          ? 'bg-gray-900/50 border border-gray-800 shadow-2xl shadow-cyan-500/10' 
-                          : 'bg-white border border-gray-200 shadow-2xl shadow-blue-500/10'
-                      }`}
-                      whileHover={{ scale: 1.02, y: -5 }}
-                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    >
-                      <motion.p 
-                        className={`mb-8 text-lg leading-relaxed ${
-                          darkMode ? 'text-gray-300' : 'text-gray-600'
-                        }`}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
+                <section id="about" className="py-20 relative">
+                  <div className="container mx-auto px-4">
+                    <div className="max-w-6xl mx-auto">
+                      {/* Section header */}
+                      <motion.div 
+                        className="flex items-center gap-4 mb-12"
+                        whileHover={{ x: 10 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 10 }}
                       >
-                        I'm a passionate full-stack developer specializing in the MERN stack and React ecosystem.
-                        Currently pursuing my B.Tech in CSE with a focus on Cyber Security, I combine my academic
-                        knowledge with practical experience in building modern web applications.
-                      </motion.p>
+                        <div className={`p-3 ${
+                          darkMode 
+                            ? 'bg-cyan-400/10 border border-cyan-400/30' 
+                            : 'bg-blue-50 border border-blue-200'
+                        }`}
+                        style={{
+                          clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))'
+                        }}>
+                          <User className={`w-6 h-6 ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
+                        </div>
+                        <h2 className={`text-4xl font-bold tracking-wide ${
+                          darkMode ? 'text-white' : 'text-gray-900'
+                        }`}>
+                          ABOUT_ME.JSON
+                        </h2>
+                      </motion.div>
                       
-                      <div className="space-y-8">
+                      <div className="grid lg:grid-cols-2 gap-12">
+                        {/* Main content */}
+                        <motion.div 
+                          className={`p-8 transition-all duration-500 ${
+                            darkMode 
+                              ? 'bg-gray-900/50 border border-cyan-400/20' 
+                              : 'bg-gray-50 border border-blue-200'
+                          }`}
+                          style={{
+                            clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px))'
+                          }}
+                          whileHover={{ y: -5 }}
+                          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                        >
+                          <motion.p 
+                            className={`text-lg leading-relaxed mb-8 ${
+                              darkMode ? 'text-gray-300' : 'text-gray-600'
+                            }`}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.2 }}
+                          >
+                            I'm a passionate full-stack developer specializing in the MERN stack and React ecosystem.
+                            Currently pursuing my B.Tech in CSE with a focus on Cyber Security, I combine my academic
+                            knowledge with practical experience in building modern web applications.
+                          </motion.p>
+
+                          {/* Stats */}
+                          <div className="grid grid-cols-2 gap-6">
+                            {[
+                              { label: 'PROJECTS', value: '15+' },
+                              { label: 'EXPERIENCE', value: '2+ YRS' },
+                              { label: 'TECHNOLOGIES', value: '20+' },
+                              { label: 'COMMITS', value: '500+' }
+                            ].map((stat, index) => (
+                              <motion.div
+                                key={stat.label}
+                                className={`text-center p-4 ${
+                                  darkMode 
+                                    ? 'bg-black/50 border border-cyan-400/20' 
+                                    : 'bg-white border border-blue-200'
+                                }`}
+                                style={{
+                                  clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))'
+                                }}
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.3 + index * 0.1 }}
+                                whileHover={{ scale: 1.05 }}
+                              >
+                                <div className={`text-2xl font-bold ${
+                                  darkMode ? 'text-cyan-400' : 'text-blue-600'
+                                }`}>
+                                  {stat.value}
+                                </div>
+                                <div className={`text-xs font-mono tracking-wider ${
+                                  darkMode ? 'text-gray-400' : 'text-gray-500'
+                                }`}>
+                                  {stat.label}
+                                </div>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </motion.div>
+
+                        {/* Education */}
                         <motion.div
-                          initial={{ opacity: 0, x: -20 }}
+                          className="space-y-6"
+                          initial={{ opacity: 0, x: 20 }}
                           whileInView={{ opacity: 1, x: 0 }}
                           transition={{ delay: 0.3 }}
                         >
-                          <h3 className={`text-2xl font-semibold mb-6 ${
+                          <h3 className={`text-2xl font-bold tracking-wide ${
                             darkMode ? 'text-white' : 'text-gray-900'
-                          }`}>Education</h3>
-                          <div className="space-y-6">
+                          }`}>
+                            EDUCATION.LOG
+                          </h3>
+                          
+                          <div className="space-y-4">
                             {[
                               {
                                 title: "B.Tech (CSE-Cyber Security)",
-                                institution: "Oriental College Of Technology (2021-2025)",
+                                institution: "Oriental College Of Technology",
+                                period: "2021-2025",
                                 grade: "CGPA: 7.45"
                               },
                               {
                                 title: "12th Grade",
-                                institution: "Shiksha Bharti Bal Niketan (2020-2021)",
+                                institution: "Shiksha Bharti Bal Niketan",
+                                period: "2020-2021",
                                 grade: "Percentage: 69%"
                               },
                               {
                                 title: "10th Grade (ICSE)",
-                                institution: "St. Charles School (2018-2019)",
+                                institution: "St. Charles School",
+                                period: "2018-2019",
                                 grade: "Percentage: 72%"
                               }
                             ].map((edu, index) => (
                               <motion.div
                                 key={index}
-                                className={`p-4 rounded-xl transition-all duration-300 ${
+                                className={`p-6 transition-all duration-300 ${
                                   darkMode 
-                                    ? 'bg-gray-800/50 hover:bg-gray-800' 
-                                    : 'bg-gray-50 hover:bg-gray-100'
+                                    ? 'bg-gray-900/30 border border-cyan-400/20 hover:border-cyan-400/40' 
+                                    : 'bg-white border border-blue-200 hover:border-blue-400'
                                 }`}
-                                whileHover={{ x: 10, scale: 1.02 }}
+                                style={{
+                                  clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))'
+                                }}
+                                whileHover={{ x: 5, scale: 1.02 }}
                                 initial={{ opacity: 0, x: -20 }}
                                 whileInView={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.4 + index * 0.1 }}
                               >
-                                <h4 className={`font-semibold text-lg ${
+                                <h4 className={`font-bold text-lg tracking-wide ${
                                   darkMode ? 'text-white' : 'text-gray-900'
-                                }`}>{edu.title}</h4>
-                                <p className={`${
+                                }`}>
+                                  {edu.title}
+                                </h4>
+                                <p className={`text-sm ${
                                   darkMode ? 'text-gray-400' : 'text-gray-500'
-                                }`}>{edu.institution}</p>
-                                <p className={`font-medium ${
+                                }`}>
+                                  {edu.institution} • {edu.period}
+                                </p>
+                                <p className={`font-mono text-sm ${
                                   darkMode ? 'text-cyan-400' : 'text-blue-600'
-                                }`}>{edu.grade}</p>
+                                }`}>
+                                  {edu.grade}
+                                </p>
                               </motion.div>
                             ))}
                           </div>
                         </motion.div>
                       </div>
-                    </motion.div>
+                    </div>
                   </div>
-                </div>
+                </section>
               </AnimatedSection>
 
               {/* Skills Section */}
               <AnimatedSection delay={0.3}>
-                <div id="skills" className="mb-20">
-                  <div className="max-w-4xl mx-auto">
-                    <motion.div 
-                      className="flex items-center gap-3 mb-8"
-                      whileHover={{ x: 10 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                    >
-                      <Code2 className={`w-8 h-8 ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
-                      <h2 className={`text-3xl font-bold ${
-                        darkMode 
-                          ? 'bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent' 
-                          : 'bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'
-                      }`}>
-                        Skills
-                      </h2>
-                    </motion.div>
-                    
-                    <div className="grid gap-6">
-                      {Object.entries(skills).map(([category, items], categoryIndex) => (
-                        <motion.div
-                          key={category}
-                          className={`rounded-2xl p-6 transition-all duration-500 ${
-                            darkMode 
-                              ? 'bg-gray-900/50 border border-gray-800 shadow-xl shadow-cyan-500/10 hover:shadow-cyan-500/20' 
-                              : 'bg-white border border-gray-200 shadow-xl shadow-blue-500/10 hover:shadow-blue-500/20'
-                          }`}
-                          initial={{ opacity: 0, y: 30 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          transition={{ delay: categoryIndex * 0.1 }}
-                          whileHover={{ scale: 1.02, y: -5 }}
-                        >
-                          <h3 className={`text-xl font-semibold mb-4 capitalize ${
-                            darkMode ? 'text-white' : 'text-gray-900'
-                          }`}>{category}</h3>
-                          <div className="flex flex-wrap gap-3">
-                            {items.map((skill, index) => (
-                              <motion.span
-                                key={index}
-                                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer ${
-                                  darkMode
-                                    ? 'bg-gray-800 text-cyan-400 border border-cyan-400/30 hover:bg-cyan-400/10 hover:scale-105'
-                                    : 'bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100 hover:scale-105'
+                <section id="skills" className="py-20 relative">
+                  <div className="container mx-auto px-4">
+                    <div className="max-w-6xl mx-auto">
+                      <motion.div 
+                        className="flex items-center gap-4 mb-12"
+                        whileHover={{ x: 10 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                      >
+                        <div className={`p-3 ${
+                          darkMode 
+                            ? 'bg-cyan-400/10 border border-cyan-400/30' 
+                            : 'bg-blue-50 border border-blue-200'
+                        }`}
+                        style={{
+                          clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))'
+                        }}>
+                          <Code2 className={`w-6 h-6 ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
+                        </div>
+                        <h2 className={`text-4xl font-bold tracking-wide ${
+                          darkMode ? 'text-white' : 'text-gray-900'
+                        }`}>
+                          SKILLS.ARRAY
+                        </h2>
+                      </motion.div>
+                      
+                      <div className="grid gap-8">
+                        {Object.entries(skills).map(([category, items], categoryIndex) => (
+                          <motion.div
+                            key={category}
+                            className={`p-8 transition-all duration-500 ${
+                              darkMode 
+                                ? 'bg-gray-900/30 border border-cyan-400/20 hover:border-cyan-400/40' 
+                                : 'bg-gray-50 border border-blue-200 hover:border-blue-400'
+                            }`}
+                            style={{
+                              clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px))'
+                            }}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: categoryIndex * 0.1 }}
+                            whileHover={{ y: -5 }}
+                          >
+                            <div className="flex items-center gap-3 mb-6">
+                              <h3 className={`text-xl font-bold tracking-wider uppercase ${
+                                darkMode ? 'text-white' : 'text-gray-900'
+                              }`}>
+                                {category}.js
+                              </h3>
+                              <motion.div
+                                className={`h-px flex-1 ${
+                                  darkMode 
+                                    ? 'bg-gradient-to-r from-cyan-400 to-transparent' 
+                                    : 'bg-gradient-to-r from-blue-500 to-transparent'
                                 }`}
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: 0.1 + index * 0.05 }}
-                                whileHover={{ scale: 1.1, y: -2 }}
-                                whileTap={{ scale: 0.95 }}
-                              >
-                                {skill}
-                              </motion.span>
-                            ))}
-                          </div>
-                        </motion.div>
-                      ))}
+                                initial={{ width: 0 }}
+                                whileInView={{ width: "100%" }}
+                                transition={{ delay: 0.2, duration: 0.8 }}
+                              />
+                            </div>
+                            
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                              {items.map((skill, index) => (
+                                <motion.div
+                                  key={index}
+                                  className={`p-3 text-center font-mono text-sm tracking-wide transition-all duration-300 cursor-pointer ${
+                                    darkMode
+                                      ? 'bg-black/50 border border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/10 hover:border-cyan-400'
+                                      : 'bg-white border border-blue-200 text-blue-600 hover:bg-blue-50 hover:border-blue-400'
+                                  }`}
+                                  style={{
+                                    clipPath: 'polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px))'
+                                  }}
+                                  initial={{ opacity: 0, scale: 0.8 }}
+                                  whileInView={{ opacity: 1, scale: 1 }}
+                                  transition={{ delay: 0.1 + index * 0.05 }}
+                                  whileHover={{ scale: 1.05, y: -2 }}
+                                  whileTap={{ scale: 0.95 }}
+                                >
+                                  {skill.toUpperCase()}
+                                </motion.div>
+                              ))}
+                            </div>
+                          </motion.div>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
+                </section>
               </AnimatedSection>
 
               {/* Projects Section */}
               <AnimatedSection delay={0.4}>
-                <div id="projects" className="mb-20">
-                  <div className="max-w-6xl mx-auto">
-                    <motion.div 
-                      className="flex items-center gap-3 mb-8"
-                      whileHover={{ x: 10 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                    >
-                      <BookOpen className={`w-8 h-8 ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
-                      <h2 className={`text-3xl font-bold ${
-                        darkMode 
-                          ? 'bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent' 
-                          : 'bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'
-                      }`}>
-                        Featured Projects
-                      </h2>
-                    </motion.div>
-                    
-                    <div className="grid md:grid-cols-2 gap-8">
-                      {projects.map((project, index) => (
-                        <ProjectCard
-                          key={index}
-                          project={project}
-                          darkMode={darkMode}
-                          index={index}
-                        />
-                      ))}
+                <section id="projects" className="py-20 relative">
+                  <div className="container mx-auto px-4">
+                    <div className="max-w-7xl mx-auto">
+                      <motion.div 
+                        className="flex items-center gap-4 mb-12"
+                        whileHover={{ x: 10 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                      >
+                        <div className={`p-3 ${
+                          darkMode 
+                            ? 'bg-cyan-400/10 border border-cyan-400/30' 
+                            : 'bg-blue-50 border border-blue-200'
+                        }`}
+                        style={{
+                          clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))'
+                        }}>
+                          <BookOpen className={`w-6 h-6 ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
+                        </div>
+                        <h2 className={`text-4xl font-bold tracking-wide ${
+                          darkMode ? 'text-white' : 'text-gray-900'
+                        }`}>
+                          PROJECTS.MAP()
+                        </h2>
+                      </motion.div>
+                      
+                      <div className="grid md:grid-cols-2 gap-8">
+                        {projects.map((project, index) => (
+                          <ProjectCard
+                            key={index}
+                            project={project}
+                            darkMode={darkMode}
+                            index={index}
+                          />
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
+                </section>
               </AnimatedSection>
 
               {/* Experience Section */}
               <AnimatedSection delay={0.5}>
-                <div id='experience' className="mb-20">
-                  <div className="max-w-4xl mx-auto">
-                    <motion.div 
-                      className="flex items-center gap-3 mb-8"
-                      whileHover={{ x: 10 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                    >
-                      <Briefcase className={`w-8 h-8 ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
-                      <h2 className={`text-3xl font-bold ${
-                        darkMode 
-                          ? 'bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent' 
-                          : 'bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'
-                      }`}>
-                        Experience
-                      </h2>
-                    </motion.div>
-                    
-                    <motion.div 
-                      className={`rounded-2xl p-8 transition-all duration-500 ${
-                        darkMode 
-                          ? 'bg-gray-900/50 border border-gray-800 shadow-xl shadow-cyan-500/10' 
-                          : 'bg-white border border-gray-200 shadow-xl shadow-blue-500/10'
-                      }`}
-                      whileHover={{ scale: 1.02, y: -5 }}
-                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    >
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
+                <section id='experience' className="py-20 relative">
+                  <div className="container mx-auto px-4">
+                    <div className="max-w-6xl mx-auto">
+                      <motion.div 
+                        className="flex items-center gap-4 mb-12"
+                        whileHover={{ x: 10 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 10 }}
                       >
-                        <h3 className={`text-2xl font-semibold mb-3 ${
+                        <div className={`p-3 ${
+                          darkMode 
+                            ? 'bg-cyan-400/10 border border-cyan-400/30' 
+                            : 'bg-blue-50 border border-blue-200'
+                        }`}
+                        style={{
+                          clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))'
+                        }}>
+                          <Briefcase className={`w-6 h-6 ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
+                        </div>
+                        <h2 className={`text-4xl font-bold tracking-wide ${
                           darkMode ? 'text-white' : 'text-gray-900'
-                        }`}>React Developer Intern</h3>
-                        <p className={`mb-4 text-lg ${
-                          darkMode ? 'text-cyan-400' : 'text-blue-600'
                         }`}>
-                          Abstinent Research & Technologies • Sep 2024 - Nov 2024
-                        </p>
-                        <ul className={`list-disc list-inside space-y-3 ${
-                          darkMode ? 'text-gray-300' : 'text-gray-600'
-                        }`}>
-                          {[
-                            "Developed reusable React and React Native components",
-                            "Implemented React Flow for workflow visualization in the Vibe project",
-                            "Created a dynamic settings page and optimized API integration",
-                            "Improved application performance through code optimization"
-                          ].map((item, index) => (
-                            <motion.li
-                              key={index}
-                              initial={{ opacity: 0, x: -20 }}
-                              whileInView={{ opacity: 1, x: 0 }}
-                              transition={{ delay: 0.3 + index * 0.1 }}
-                            >
-                              {item}
-                            </motion.li>
-                          ))}
-                        </ul>
+                          EXPERIENCE.PUSH()
+                        </h2>
                       </motion.div>
-                    </motion.div>
+                      
+                      <motion.div 
+                        className={`p-8 transition-all duration-500 ${
+                          darkMode 
+                            ? 'bg-gray-900/30 border border-cyan-400/20' 
+                            : 'bg-gray-50 border border-blue-200'
+                        }`}
+                        style={{
+                          clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px))'
+                        }}
+                        whileHover={{ y: -5 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                      >
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.2 }}
+                        >
+                          <div className="flex items-start gap-4 mb-6">
+                            <div className={`p-2 ${
+                              darkMode 
+                                ? 'bg-cyan-400/10 border border-cyan-400/30' 
+                                : 'bg-blue-50 border border-blue-200'
+                            }`}
+                            style={{
+                              clipPath: 'polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px))'
+                            }}>
+                              <Terminal className={`w-5 h-5 ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
+                            </div>
+                            <div>
+                              <h3 className={`text-2xl font-bold tracking-wide ${
+                                darkMode ? 'text-white' : 'text-gray-900'
+                              }`}>
+                                REACT_DEVELOPER_INTERN
+                              </h3>
+                              <p className={`text-lg font-mono ${
+                                darkMode ? 'text-cyan-400' : 'text-blue-600'
+                              }`}>
+                                Abstinent Research & Technologies • Sep 2024 - Nov 2024
+                              </p>
+                            </div>
+                          </div>
+                          
+                          <div className="grid md:grid-cols-2 gap-6">
+                            {[
+                              "Developed reusable React and React Native components",
+                              "Implemented React Flow for workflow visualization in the Vibe project",
+                              "Created a dynamic settings page and optimized API integration",
+                              "Improved application performance through code optimization"
+                            ].map((item, index) => (
+                              <motion.div
+                                key={index}
+                                className={`flex items-start gap-3 p-4 ${
+                                  darkMode 
+                                    ? 'bg-black/30 border border-cyan-400/20' 
+                                    : 'bg-white border border-blue-200'
+                                }`}
+                                style={{
+                                  clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))'
+                                }}
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.3 + index * 0.1 }}
+                                whileHover={{ x: 5 }}
+                              >
+                                <Zap className={`w-4 h-4 mt-1 flex-shrink-0 ${
+                                  darkMode ? 'text-cyan-400' : 'text-blue-600'
+                                }`} />
+                                <span className={`text-sm ${
+                                  darkMode ? 'text-gray-300' : 'text-gray-600'
+                                }`}>
+                                  {item}
+                                </span>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </motion.div>
+                      </motion.div>
+                    </div>
                   </div>
-                </div>
+                </section>
               </AnimatedSection>
 
               {/* Contact Section */}
               <AnimatedSection delay={0.6}>
-                <div id='contact'>
-                  <div className="max-w-4xl mx-auto">
-                    <motion.div 
-                      className="flex items-center gap-3 mb-8"
-                      whileHover={{ x: 10 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                    >
-                      <Mail className={`w-8 h-8 ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
-                      <h2 className={`text-3xl font-bold ${
-                        darkMode 
-                          ? 'bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent' 
-                          : 'bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'
-                      }`}>
-                        Get in Touch
-                      </h2>
-                    </motion.div>
-                    
-                    <div className="grid md:grid-cols-2 gap-8">
-                      {/* Contact Form */}
+                <section id='contact' className="py-20 relative">
+                  <div className="container mx-auto px-4">
+                    <div className="max-w-6xl mx-auto">
                       <motion.div 
-                        className={`rounded-2xl p-8 transition-all duration-500 ${
-                          darkMode 
-                            ? 'bg-gray-900/50 border border-gray-800 shadow-xl shadow-cyan-500/10' 
-                            : 'bg-white border border-gray-200 shadow-xl shadow-blue-500/10'
-                        }`}
-                        whileHover={{ scale: 1.02, y: -5 }}
-                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                        className="flex items-center gap-4 mb-12"
+                        whileHover={{ x: 10 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 10 }}
                       >
-                        <form className="space-y-6">
-                          {[
-                            { id: 'name', label: 'Name', type: 'text', value: formData.name },
-                            { id: 'email', label: 'Email', type: 'email', value: formData.email }
-                          ].map((field, index) => (
+                        <div className={`p-3 ${
+                          darkMode 
+                            ? 'bg-cyan-400/10 border border-cyan-400/30' 
+                            : 'bg-blue-50 border border-blue-200'
+                        }`}
+                        style={{
+                          clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))'
+                        }}>
+                          <Mail className={`w-6 h-6 ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
+                        </div>
+                        <h2 className={`text-4xl font-bold tracking-wide ${
+                          darkMode ? 'text-white' : 'text-gray-900'
+                        }`}>
+                          CONTACT.INIT()
+                        </h2>
+                      </motion.div>
+                      
+                      <div className="grid lg:grid-cols-2 gap-12">
+                        {/* Contact Form */}
+                        <motion.div 
+                          className={`p-8 transition-all duration-500 ${
+                            darkMode 
+                              ? 'bg-gray-900/30 border border-cyan-400/20' 
+                              : 'bg-gray-50 border border-blue-200'
+                          }`}
+                          style={{
+                            clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px))'
+                          }}
+                          whileHover={{ y: -5 }}
+                          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                        >
+                          <form className="space-y-6">
+                            {[
+                              { id: 'name', label: 'NAME', type: 'text', value: formData.name },
+                              { id: 'email', label: 'EMAIL', type: 'email', value: formData.email }
+                            ].map((field, index) => (
+                              <motion.div
+                                key={field.id}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.1 + index * 0.1 }}
+                              >
+                                <label htmlFor={field.id} className={`block text-sm font-mono tracking-wider mb-3 ${
+                                  darkMode ? 'text-cyan-400' : 'text-blue-600'
+                                }`}>
+                                  {field.label}:
+                                </label>
+                                <input
+                                  type={field.type}
+                                  id={field.id}
+                                  className={`w-full p-4 font-mono transition-all duration-300 ${
+                                    darkMode
+                                      ? 'bg-black/50 border border-cyan-400/30 focus:border-cyan-400 text-white placeholder-gray-500'
+                                      : 'bg-white border border-blue-200 focus:border-blue-500 text-gray-900 placeholder-gray-400'
+                                  } focus:ring-0 outline-none`}
+                                  style={{
+                                    clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))'
+                                  }}
+                                  value={field.value}
+                                  onChange={(e) => setFormData({ ...formData, [field.id]: e.target.value })}
+                                  placeholder={`ENTER_${field.label}`}
+                                />
+                              </motion.div>
+                            ))}
+                            
                             <motion.div
-                              key={field.id}
                               initial={{ opacity: 0, y: 20 }}
                               whileInView={{ opacity: 1, y: 0 }}
-                              transition={{ delay: 0.1 + index * 0.1 }}
+                              transition={{ delay: 0.3 }}
                             >
-                              <label htmlFor={field.id} className={`block text-sm font-medium mb-2 ${
-                                darkMode ? 'text-gray-300' : 'text-gray-700'
+                              <label htmlFor="message" className={`block text-sm font-mono tracking-wider mb-3 ${
+                                darkMode ? 'text-cyan-400' : 'text-blue-600'
                               }`}>
-                                {field.label}
+                                MESSAGE:
                               </label>
-                              <input
-                                type={field.type}
-                                id={field.id}
-                                className={`w-full rounded-xl p-4 transition-all duration-300 ${
+                              <textarea
+                                id="message"
+                                rows={5}
+                                className={`w-full p-4 font-mono transition-all duration-300 resize-none ${
                                   darkMode
-                                    ? 'bg-gray-800 border-gray-700 focus:border-cyan-400 text-white placeholder-gray-400'
-                                    : 'bg-gray-50 border-gray-300 focus:border-blue-500 text-gray-900 placeholder-gray-500'
-                                } border-2 focus:ring-4 focus:ring-opacity-20 outline-none`}
-                                value={field.value}
-                                onChange={(e) => setFormData({ ...formData, [field.id]: e.target.value })}
+                                    ? 'bg-black/50 border border-cyan-400/30 focus:border-cyan-400 text-white placeholder-gray-500'
+                                    : 'bg-white border border-blue-200 focus:border-blue-500 text-gray-900 placeholder-gray-400'
+                                } focus:ring-0 outline-none`}
+                                style={{
+                                  clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))'
+                                }}
+                                value={formData.message}
+                                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                                placeholder="ENTER_YOUR_MESSAGE"
                               />
                             </motion.div>
-                          ))}
-                          
-                          <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.3 }}
-                          >
-                            <label htmlFor="message" className={`block text-sm font-medium mb-2 ${
-                              darkMode ? 'text-gray-300' : 'text-gray-700'
-                            }`}>
-                              Message
-                            </label>
-                            <textarea
-                              id="message"
-                              rows={4}
-                              className={`w-full rounded-xl p-4 transition-all duration-300 resize-none ${
+                            
+                            <motion.button
+                              type="submit"
+                              className={`w-full py-4 font-bold tracking-wider transition-all duration-300 ${
                                 darkMode
-                                  ? 'bg-gray-800 border-gray-700 focus:border-cyan-400 text-white placeholder-gray-400'
-                                  : 'bg-gray-50 border-gray-300 focus:border-blue-500 text-gray-900 placeholder-gray-500'
-                              } border-2 focus:ring-4 focus:ring-opacity-20 outline-none`}
-                              value={formData.message}
-                              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                            />
-                          </motion.div>
-                          
-                          <motion.button
-                            type="submit"
-                            className={`w-full py-4 rounded-xl font-semibold transition-all duration-300 ${
-                              darkMode
-                                ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50'
-                                : 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50'
-                            }`}
-                            whileHover={{ scale: 1.02, y: -2 }}
-                            whileTap={{ scale: 0.98 }}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.4 }}
-                          >
-                            Send Message
-                          </motion.button>
-                        </form>
-                      </motion.div>
-
-                      {/* Contact Info */}
-                      <motion.div 
-                        className={`rounded-2xl p-8 transition-all duration-500 ${
-                          darkMode 
-                            ? 'bg-gray-900/50 border border-gray-800 shadow-xl shadow-cyan-500/10' 
-                            : 'bg-white border border-gray-200 shadow-xl shadow-blue-500/10'
-                        }`}
-                        whileHover={{ scale: 1.02, y: -5 }}
-                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                      >
-                        <div className="space-y-6">
-                          {[
-                            { icon: Mail, label: "anmolmittal0987@gmail.com", href: "mailto:anmolmittal0987@gmail.com" },
-                            { icon: Mail, label: "+91 7024511800", href: "tel:+917024511800" }
-                          ].map((contact, index) => (
-                            <motion.a
-                              key={index}
-                              href={contact.href}
-                              className={`flex items-center gap-4 p-4 rounded-xl transition-all duration-300 ${
-                                darkMode
-                                  ? 'hover:bg-cyan-400/10 text-gray-300 hover:text-cyan-400'
-                                  : 'hover:bg-blue-50 text-gray-600 hover:text-blue-600'
+                                  ? 'bg-cyan-400 text-black hover:bg-cyan-300'
+                                  : 'bg-blue-600 text-white hover:bg-blue-700'
                               }`}
-                              whileHover={{ x: 10, scale: 1.02 }}
-                              initial={{ opacity: 0, x: -20 }}
-                              whileInView={{ opacity: 1, x: 0 }}
-                              transition={{ delay: 0.1 + index * 0.1 }}
+                              style={{
+                                clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))'
+                              }}
+                              whileHover={{ scale: 1.02, y: -2 }}
+                              whileTap={{ scale: 0.98 }}
+                              initial={{ opacity: 0, y: 20 }}
+                              whileInView={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.4 }}
                             >
-                              <contact.icon className={`w-6 h-6 ${
-                                darkMode ? 'text-cyan-400' : 'text-blue-600'
-                              }`} />
-                              <span className="font-medium">{contact.label}</span>
-                            </motion.a>
-                          ))}
-                        </div>
-                      </motion.div>
+                              SEND_MESSAGE.EXECUTE()
+                            </motion.button>
+                          </form>
+                        </motion.div>
+
+                        {/* Contact Info */}
+                        <motion.div 
+                          className="space-y-8"
+                          initial={{ opacity: 0, x: 20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.2 }}
+                        >
+                          <div>
+                            <h3 className={`text-2xl font-bold tracking-wide mb-6 ${
+                              darkMode ? 'text-white' : 'text-gray-900'
+                            }`}>
+                              GET_IN_TOUCH.ASYNC()
+                            </h3>
+                            <p className={`text-lg leading-relaxed ${
+                              darkMode ? 'text-gray-300' : 'text-gray-600'
+                            }`}>
+                              Ready to collaborate on your next project? Let's build something amazing together.
+                            </p>
+                          </div>
+
+                          <div className="space-y-4">
+                            {[
+                              { icon: Mail, label: "anmolmittal0987@gmail.com", href: "mailto:anmolmittal0987@gmail.com" },
+                              { icon: Mail, label: "+91 7024511800", href: "tel:+917024511800" }
+                            ].map((contact, index) => (
+                              <motion.a
+                                key={index}
+                                href={contact.href}
+                                className={`flex items-center gap-4 p-4 transition-all duration-300 ${
+                                  darkMode
+                                    ? 'bg-gray-900/30 border border-cyan-400/20 hover:border-cyan-400/50 text-gray-300 hover:text-cyan-400'
+                                    : 'bg-white border border-blue-200 hover:border-blue-400 text-gray-600 hover:text-blue-600'
+                                }`}
+                                style={{
+                                  clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))'
+                                }}
+                                whileHover={{ x: 10, scale: 1.02 }}
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.1 + index * 0.1 }}
+                              >
+                                <div className={`p-2 ${
+                                  darkMode 
+                                    ? 'bg-cyan-400/10 border border-cyan-400/30' 
+                                    : 'bg-blue-50 border border-blue-200'
+                                }`}
+                                style={{
+                                  clipPath: 'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))'
+                                }}>
+                                  <contact.icon className={`w-4 h-4 ${
+                                    darkMode ? 'text-cyan-400' : 'text-blue-600'
+                                  }`} />
+                                </div>
+                                <span className="font-mono text-sm tracking-wide">{contact.label}</span>
+                              </motion.a>
+                            ))}
+                          </div>
+                        </motion.div>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </section>
               </AnimatedSection>
-            </div>
+            </main>
 
             {/* Footer */}
             <motion.footer
-              className={`mt-20 py-8 border-t transition-all duration-500 ${
+              className={`py-8 border-t transition-all duration-500 ${
                 darkMode 
-                  ? 'border-gray-800 bg-black/50' 
-                  : 'border-gray-200 bg-gray-50/50'
+                  ? 'border-cyan-400/20 bg-black/50' 
+                  : 'border-blue-200 bg-gray-50'
               }`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
-              <div className="container mx-auto px-6 text-center">
+              <div className="container mx-auto px-4 text-center">
                 <motion.p 
-                  className="flex items-center justify-center gap-2 text-lg"
+                  className={`flex items-center justify-center gap-3 text-lg font-mono tracking-wide ${
+                    darkMode ? 'text-gray-300' : 'text-gray-600'
+                  }`}
                   whileHover={{ scale: 1.05 }}
                 >
-                  © 2024 Anmol Mittal. Built with 
+                  © 2024 ANMOL.DEV • BUILT_WITH 
                   <motion.span
                     animate={{ scale: [1, 1.2, 1] }}
                     transition={{ duration: 1, repeat: Infinity }}
                   >
-                    <Heart className="w-5 h-5 text-red-500" />
+                    <Heart className={`w-5 h-5 ${darkMode ? 'text-cyan-400' : 'text-red-500'}`} />
                   </motion.span>
-                  using React & Tailwind CSS
+                  USING REACT & TAILWIND
                 </motion.p>
               </div>
             </motion.footer>
