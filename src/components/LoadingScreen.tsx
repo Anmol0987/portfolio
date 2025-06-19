@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Terminal, Code2, Zap } from 'lucide-react';
+import { Terminal } from 'lucide-react';
 
 interface LoadingScreenProps {
   onComplete: () => void;

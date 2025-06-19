@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Terminal, Moon, Sun, Menu, X, Zap } from 'lucide-react';
+import { Terminal, Moon, Sun, Menu, X} from 'lucide-react';
 import { useState } from 'react';
 
 interface HeaderProps {
