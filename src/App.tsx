@@ -1,17 +1,23 @@
-import { useState } from 'react';
-import { Github, Linkedin, Mail, Phone, Code2, BookOpen, User, Briefcase, Send, Heart, Moon, Sun, ExternalLink, Terminal } from 'lucide-react';
-import DecryptedText from './DecryptedText';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { User, Code2, BookOpen, Briefcase, Mail, Heart } from 'lucide-react';
+
+// Components
+import LoadingScreen from './components/LoadingScreen';
+import Header from './components/Header';
+import HeroSection from './components/HeroSection';
+import AnimatedSection from './components/AnimatedSection';
+import ProjectCard from './components/ProjectCard';
 
 function App() {
+  const [loading, setLoading] = useState(true);
   const [darkMode, setDarkMode] = useState(true);
   const [activeTab, setActiveTab] = useState('about');
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const fullText = 'Full Stack MERN Developer | React Specialist';
-
 
   const skills = {
     languages: ["Java", "C", "JavaScript", "TypeScript"],
-    frontend: ["HTML", "CSS", "React.js", "Tailwind CSS", "React Native", "Next.js", "recoil"],
+    frontend: ["HTML", "CSS", "React.js", "Tailwind CSS", "React Native", "Next.js", "Recoil"],
     backend: ["Node.js", "Express.js", "JWT", "Web Socket", "Zod validation", "API", "OAuth"],
     database: ["MongoDB", "PrismaORM", "PostgreSQL"],
     tools: ["Git", "GitHub", "Docker"]
@@ -20,7 +26,7 @@ function App() {
   const projects = [
     {
       title: "SketchCraft",
-      description: "SketchCraft is a monorepo app managed with TurboRepo, featuring a Next.js frontend with real-time WebSocket interactivity, a Node.js/Express backend secured via JWT, and Prisma for type-safe database operations.It seamlessly integrates these technologies to deliver a scalable, efficient drawing canvas for creating and sharing shapes and freehand sketches.",
+      description: "SketchCraft is a monorepo app managed with TurboRepo, featuring a Next.js frontend with real-time WebSocket interactivity, a Node.js/Express backend secured via JWT, and Prisma for type-safe database operations. It seamlessly integrates these technologies to deliver a scalable, efficient drawing canvas for creating and sharing shapes and freehand sketches.",
       tech: ["TurboRepo", "NextJs", "Web Socket", "nodeJs", "Express", "JWT", "Prisma"],
       image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&q=80",
       github: "https://github.com/Anmol0987/draw_app",
@@ -28,7 +34,7 @@ function App() {
     },
     {
       title: "Simple Secure Chat",
-      description: " A real-time chat application allowing users to create and join rooms for secure one-on-one and group chats. Built with TurboRepo, Next.js, WebSocket, Prisma, JWT, Node.js, Express.js, and Tailwind CSS for seamless and secure communication.",
+      description: "A real-time chat application allowing users to create and join rooms for secure one-on-one and group chats. Built with TurboRepo, Next.js, WebSocket, Prisma, JWT, Node.js, Express.js, and Tailwind CSS for seamless and secure communication.",
       tech: ["TurboRepo", 'NextJS', 'Websocket', "Prisma", "JWT", "nodejs", "Express.js", "Tailwind CSS"],
       image: "https://images.unsplash.com/photo-1580519542036-c47de6196ba5?auto=format&fit=crop&w=800&q=80",
       github: "https://github.com/Anmol0987/chatApp-turborepo-nextJs-prisma-websocket",
@@ -50,349 +56,481 @@ function App() {
       github: "https://github.com/Anmol0987/recipe",
       demo: "https://recipe-peach-ten.vercel.app/"
     }
-
   ];
 
+  useEffect(() => {
+    // Simulate loading time
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleLoadingComplete = () => {
+    setLoading(false);
+  };
+
   return (
-    <div className={`min-h-screen ${darkMode ? 'bg-gray-900 text-gray-100' : 'bg-gray-50 text-gray-900'} transition-colors duration-300`}>
-      <header className={`p-6 border-b ${darkMode ? 'border-gray-700 bg-gray-900/95' : 'border-gray-200 bg-gray-50/95'} sticky top-0 backdrop-blur-sm z-50`}>
-        <div className="container mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2 text-xl">
-            <Terminal className="w-6 h-6" />
-            <DecryptedText
-              text="Anmol Mittal"
-              animateOn="view"
-              revealDirection="center"
-              speed={70}
+    <div className={`min-h-screen transition-all duration-500 ${
+      darkMode 
+        ? 'bg-gradient-to-br from-black via-gray-900 to-black text-gray-100' 
+        : 'bg-gradient-to-br from-gray-50 via-white to-gray-50 text-gray-900'
+    }`}>
+      <AnimatePresence mode="wait">
+        {loading && <LoadingScreen onComplete={handleLoadingComplete} />}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {!loading && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+          >
+            <Header 
+              darkMode={darkMode} 
+              setDarkMode={setDarkMode} 
+              activeTab={activeTab} 
+              setActiveTab={setActiveTab} 
             />
-          </div>
-          <div className="flex items-center gap-6">
-            <nav className="hidden md:flex gap-6">
-              {['about', 'skills', 'projects', 'experience', 'contact'].map((item) => (
-                <a
-                  key={item}
-                  href={`#${item}`}
-                  onClick={() => setActiveTab(item)}
-                  className={`hover:text-blue-500 transition-colors ${activeTab === item ? 'text-blue-500 border-b-2 border-blue-500' : ''
-                    }`}
-                >
-                  {item.charAt(0).toUpperCase() + item.slice(1)}
-                </a>
-              ))}
-            </nav>
-            <button
-              onClick={() => setDarkMode(!darkMode)}
-              className={`p-2 rounded-lg ${darkMode ? 'bg-gray-800 text-yellow-500' : 'bg-gray-200 text-gray-900'}`}
-            >
-              {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </button>
-          </div>
-        </div>
-      </header>
 
-      <div className="container mx-auto px-6 py-12">
-        <section id="hero" className="mb-20">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="mb-8">
-              <img
-                src='https://res.cloudinary.com/dvwmoh776/image/upload/v1738343815/raftj45nn8wrauknjxyd.png'
-                alt="Anmol Mittal"
-                className="w-64 h-80 rounded-full border-4 border-blue-500 p-1 mx-auto mb-6 hover:rotate-3 transition-transform duration-300"
-              />
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">Anmol Mittal</h1>
-              <p className={`text-lg mb-8 h-20 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                <DecryptedText
-                  text={fullText}
-                  animateOn="view"
-                  revealDirection="center"
-                  speed={100}
-                />
-              </p>
-              <div className="flex gap-4 justify-center flex-wrap">
-                <a
-                  href="#projects"
-                  className={`px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors flex items-center gap-2`}
-                >
-                  View My Work
-                  <ExternalLink className="w-4 h-4" />
-                </a>
-                <a
-                  href="https://drive.google.com/file/d/1WbzWr4NXvZ8HsgJHiftckIgdC8CKxWMD/view?usp=sharing"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors"
-                >
-                  Download Resume
-                </a>
-              </div>
-              <div className="flex gap-4 justify-center mt-6">
-                <a
-                  href="https://github.com/Anmol0987"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-blue-500 transition-colors"
-                >
-                  <Github className="w-6 h-6" />
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/anmol-mittal-b53562229"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-blue-500 transition-colors"
-                >
-                  <Linkedin className="w-6 h-6" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
+            <div className="container mx-auto px-6 py-12">
+              <HeroSection darkMode={darkMode} />
 
-        <div id="about" className="mb-20">
-          <div className="max-w-4xl mx-auto">
-            <div className="flex items-center gap-2 mb-6">
-              <User className="w-6 h-6" />
-              <h2 className="text-2xl font-bold">About Me</h2>
-            </div>
-            <div className={`rounded-lg p-8 ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-lg`}>
-              <p className={`mb-6 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                I'm a passionate full-stack developer specializing in the MERN stack and React ecosystem.
-                Currently pursuing my B.Tech in CSE with a focus on Cyber Security, I combine my academic
-                knowledge with practical experience in building modern web applications.
-              </p>
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-xl font-semibold mb-4">Education</h3>
-                  <div className="space-y-4">
-                    <div>
-                      <h4 className="font-medium">B.Tech (CSE-Cyber Security)</h4>
-                      <p className={`${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-                        Oriental College Of Technology (2021-2025)
-                      </p>
-                      <p className="text-blue-500">CGPA: 7.45</p>
-                    </div>
-                    <div>
-                      <h4 className="font-medium">12th Grade</h4>
-                      <p className={`${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-                        Shiksha Bharti Bal Niketan (2020-2021)
-                      </p>
-                      <p className="text-blue-500">Percentage: 69%</p>
-                    </div>
-                    <div>
-                      <h4 className="font-medium">10th Grade (ICSE)</h4>
-                      <p className={`${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-                        St. Charles School (2018-2019)
-                      </p>
-                      <p className="text-blue-500">Percentage: 72%</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div id="skills" className="mb-20">
-          <div className="max-w-4xl mx-auto">
-            <div className="flex items-center gap-2 mb-6">
-              <Code2 className="w-6 h-6" />
-              <h2 className="text-2xl font-bold">Skills</h2>
-            </div>
-            <div className="grid gap-6">
-              {Object.entries(skills).map(([category, items]) => (
-                <div key={category} className={`rounded-lg p-6 ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-lg`}>
-                  <h3 className="text-xl font-semibold mb-4 capitalize">{category}</h3>
-                  <div className="flex flex-wrap gap-3">
-                    {items.map((skill, index) => (
-                      <span
-                        key={index}
-                        className={`px-4 py-2 rounded-full text-sm ${darkMode ? 'bg-gray-700 text-white' : 'bg-gray-100 text-blue-500'
-                          }`}
+              {/* About Section */}
+              <AnimatedSection delay={0.2}>
+                <div id="about" className="mb-20">
+                  <div className="max-w-4xl mx-auto">
+                    <motion.div 
+                      className="flex items-center gap-3 mb-8"
+                      whileHover={{ x: 10 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    >
+                      <User className={`w-8 h-8 ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
+                      <h2 className={`text-3xl font-bold ${
+                        darkMode 
+                          ? 'bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent' 
+                          : 'bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'
+                      }`}>
+                        About Me
+                      </h2>
+                    </motion.div>
+                    
+                    <motion.div 
+                      className={`rounded-2xl p-8 transition-all duration-500 ${
+                        darkMode 
+                          ? 'bg-gray-900/50 border border-gray-800 shadow-2xl shadow-cyan-500/10' 
+                          : 'bg-white border border-gray-200 shadow-2xl shadow-blue-500/10'
+                      }`}
+                      whileHover={{ scale: 1.02, y: -5 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    >
+                      <motion.p 
+                        className={`mb-8 text-lg leading-relaxed ${
+                          darkMode ? 'text-gray-300' : 'text-gray-600'
+                        }`}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
                       >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div id="projects" className="mb-20">
-          <div className="max-w-4xl mx-auto">
-            <div className="flex items-center gap-2 mb-6">
-              <BookOpen className="w-6 h-6" />
-              <h2 className="text-2xl font-bold">Featured Projects</h2>
-            </div>
-            <div className="grid md:grid-cols-2 gap-6">
-              {projects.map((project, index) => (
-                <div
-                  key={index}
-                  className={`rounded-lg overflow-hidden group ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-lg`}
-                >
-                  <div className="relative h-48">
-                    <img
-                      // src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
-                      <a
-                        href={project.demo}
-                        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
-                      >
-                        Live Demo
-                      </a>
-                      <a
-                        href={project.github}
-                        className="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600 transition-colors"
-                      >
-                        GitHub
-                      </a>
-                    </div>
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-                    <p className={`mb-4 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                      {project.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.tech.map((tech, techIndex) => (
-                        <span
-                          key={techIndex}
-                          className={`text-sm px-2 py-1 rounded ${darkMode ? 'bg-gray-700 text-blue-400' : 'bg-blue-100 text-blue-800'
-                            }`}
+                        I'm a passionate full-stack developer specializing in the MERN stack and React ecosystem.
+                        Currently pursuing my B.Tech in CSE with a focus on Cyber Security, I combine my academic
+                        knowledge with practical experience in building modern web applications.
+                      </motion.p>
+                      
+                      <div className="space-y-8">
+                        <motion.div
+                          initial={{ opacity: 0, x: -20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.3 }}
                         >
-                          {tech}
-                        </span>
+                          <h3 className={`text-2xl font-semibold mb-6 ${
+                            darkMode ? 'text-white' : 'text-gray-900'
+                          }`}>Education</h3>
+                          <div className="space-y-6">
+                            {[
+                              {
+                                title: "B.Tech (CSE-Cyber Security)",
+                                institution: "Oriental College Of Technology (2021-2025)",
+                                grade: "CGPA: 7.45"
+                              },
+                              {
+                                title: "12th Grade",
+                                institution: "Shiksha Bharti Bal Niketan (2020-2021)",
+                                grade: "Percentage: 69%"
+                              },
+                              {
+                                title: "10th Grade (ICSE)",
+                                institution: "St. Charles School (2018-2019)",
+                                grade: "Percentage: 72%"
+                              }
+                            ].map((edu, index) => (
+                              <motion.div
+                                key={index}
+                                className={`p-4 rounded-xl transition-all duration-300 ${
+                                  darkMode 
+                                    ? 'bg-gray-800/50 hover:bg-gray-800' 
+                                    : 'bg-gray-50 hover:bg-gray-100'
+                                }`}
+                                whileHover={{ x: 10, scale: 1.02 }}
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.4 + index * 0.1 }}
+                              >
+                                <h4 className={`font-semibold text-lg ${
+                                  darkMode ? 'text-white' : 'text-gray-900'
+                                }`}>{edu.title}</h4>
+                                <p className={`${
+                                  darkMode ? 'text-gray-400' : 'text-gray-500'
+                                }`}>{edu.institution}</p>
+                                <p className={`font-medium ${
+                                  darkMode ? 'text-cyan-400' : 'text-blue-600'
+                                }`}>{edu.grade}</p>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </motion.div>
+                      </div>
+                    </motion.div>
+                  </div>
+                </div>
+              </AnimatedSection>
+
+              {/* Skills Section */}
+              <AnimatedSection delay={0.3}>
+                <div id="skills" className="mb-20">
+                  <div className="max-w-4xl mx-auto">
+                    <motion.div 
+                      className="flex items-center gap-3 mb-8"
+                      whileHover={{ x: 10 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    >
+                      <Code2 className={`w-8 h-8 ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
+                      <h2 className={`text-3xl font-bold ${
+                        darkMode 
+                          ? 'bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent' 
+                          : 'bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'
+                      }`}>
+                        Skills
+                      </h2>
+                    </motion.div>
+                    
+                    <div className="grid gap-6">
+                      {Object.entries(skills).map(([category, items], categoryIndex) => (
+                        <motion.div
+                          key={category}
+                          className={`rounded-2xl p-6 transition-all duration-500 ${
+                            darkMode 
+                              ? 'bg-gray-900/50 border border-gray-800 shadow-xl shadow-cyan-500/10 hover:shadow-cyan-500/20' 
+                              : 'bg-white border border-gray-200 shadow-xl shadow-blue-500/10 hover:shadow-blue-500/20'
+                          }`}
+                          initial={{ opacity: 0, y: 30 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ delay: categoryIndex * 0.1 }}
+                          whileHover={{ scale: 1.02, y: -5 }}
+                        >
+                          <h3 className={`text-xl font-semibold mb-4 capitalize ${
+                            darkMode ? 'text-white' : 'text-gray-900'
+                          }`}>{category}</h3>
+                          <div className="flex flex-wrap gap-3">
+                            {items.map((skill, index) => (
+                              <motion.span
+                                key={index}
+                                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer ${
+                                  darkMode
+                                    ? 'bg-gray-800 text-cyan-400 border border-cyan-400/30 hover:bg-cyan-400/10 hover:scale-105'
+                                    : 'bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100 hover:scale-105'
+                                }`}
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.1 + index * 0.05 }}
+                                whileHover={{ scale: 1.1, y: -2 }}
+                                whileTap={{ scale: 0.95 }}
+                              >
+                                {skill}
+                              </motion.span>
+                            ))}
+                          </div>
+                        </motion.div>
                       ))}
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
-        </div>
+              </AnimatedSection>
 
-        <div id='experience' className="mb-20">
-          <div className="max-w-4xl mx-auto">
-            <div className="flex items-center gap-2 mb-6">
-              <Briefcase className="w-6 h-6" />
-              <h2 className="text-2xl font-bold">Experience</h2>
-            </div>
-            <div className={`rounded-lg p-6 ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-lg`}>
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-xl font-semibold mb-2">React Developer Intern</h3>
-                  <p className={`${darkMode ? 'text-gray-400' : 'text-gray-500'} mb-2`}>
-                    Abstinent Research & Technologies • Sep 2024 - Nov 2024
-                  </p>
-                  <ul className={`list-disc list-inside ${darkMode ? 'text-gray-300' : 'text-gray-600'} space-y-2`}>
-                    <li>Developed reusable React and React Native components</li>
-                    <li>Implemented React Flow for workflow visualization in the Vibe project</li>
-                    <li>Created a dynamic settings page and optimized API integration</li>
-                    <li>Improved application performance through code optimization</li>
-                  </ul>
+              {/* Projects Section */}
+              <AnimatedSection delay={0.4}>
+                <div id="projects" className="mb-20">
+                  <div className="max-w-6xl mx-auto">
+                    <motion.div 
+                      className="flex items-center gap-3 mb-8"
+                      whileHover={{ x: 10 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    >
+                      <BookOpen className={`w-8 h-8 ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
+                      <h2 className={`text-3xl font-bold ${
+                        darkMode 
+                          ? 'bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent' 
+                          : 'bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'
+                      }`}>
+                        Featured Projects
+                      </h2>
+                    </motion.div>
+                    
+                    <div className="grid md:grid-cols-2 gap-8">
+                      {projects.map((project, index) => (
+                        <ProjectCard
+                          key={index}
+                          project={project}
+                          darkMode={darkMode}
+                          index={index}
+                        />
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
+              </AnimatedSection>
 
-        <div id='contact' >
-          <div className="max-w-4xl mx-auto">
-            <div className="flex items-center gap-2 mb-6">
-              <Mail className="w-6 h-6" />
-              <h2 className="text-2xl font-bold">Get in Touch</h2>
-            </div>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className={`rounded-lg p-6 ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-lg`}>
+              {/* Experience Section */}
+              <AnimatedSection delay={0.5}>
+                <div id='experience' className="mb-20">
+                  <div className="max-w-4xl mx-auto">
+                    <motion.div 
+                      className="flex items-center gap-3 mb-8"
+                      whileHover={{ x: 10 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    >
+                      <Briefcase className={`w-8 h-8 ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
+                      <h2 className={`text-3xl font-bold ${
+                        darkMode 
+                          ? 'bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent' 
+                          : 'bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'
+                      }`}>
+                        Experience
+                      </h2>
+                    </motion.div>
+                    
+                    <motion.div 
+                      className={`rounded-2xl p-8 transition-all duration-500 ${
+                        darkMode 
+                          ? 'bg-gray-900/50 border border-gray-800 shadow-xl shadow-cyan-500/10' 
+                          : 'bg-white border border-gray-200 shadow-xl shadow-blue-500/10'
+                      }`}
+                      whileHover={{ scale: 1.02, y: -5 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    >
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                      >
+                        <h3 className={`text-2xl font-semibold mb-3 ${
+                          darkMode ? 'text-white' : 'text-gray-900'
+                        }`}>React Developer Intern</h3>
+                        <p className={`mb-4 text-lg ${
+                          darkMode ? 'text-cyan-400' : 'text-blue-600'
+                        }`}>
+                          Abstinent Research & Technologies • Sep 2024 - Nov 2024
+                        </p>
+                        <ul className={`list-disc list-inside space-y-3 ${
+                          darkMode ? 'text-gray-300' : 'text-gray-600'
+                        }`}>
+                          {[
+                            "Developed reusable React and React Native components",
+                            "Implemented React Flow for workflow visualization in the Vibe project",
+                            "Created a dynamic settings page and optimized API integration",
+                            "Improved application performance through code optimization"
+                          ].map((item, index) => (
+                            <motion.li
+                              key={index}
+                              initial={{ opacity: 0, x: -20 }}
+                              whileInView={{ opacity: 1, x: 0 }}
+                              transition={{ delay: 0.3 + index * 0.1 }}
+                            >
+                              {item}
+                            </motion.li>
+                          ))}
+                        </ul>
+                      </motion.div>
+                    </motion.div>
+                  </div>
+                </div>
+              </AnimatedSection>
 
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium mb-2">Name</label>
-                  <input
-                    type="text"
-                    id="name"
-                    className={`w-full rounded-lg p-3 ${darkMode
-                      ? 'bg-gray-700 border-gray-600 focus:border-blue-500'
-                      : 'bg-gray-50 border-gray-300 focus:border-blue-500'
-                      } border focus:ring-2 focus:ring-blue-500/20 outline-none`}
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  />
+              {/* Contact Section */}
+              <AnimatedSection delay={0.6}>
+                <div id='contact'>
+                  <div className="max-w-4xl mx-auto">
+                    <motion.div 
+                      className="flex items-center gap-3 mb-8"
+                      whileHover={{ x: 10 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    >
+                      <Mail className={`w-8 h-8 ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
+                      <h2 className={`text-3xl font-bold ${
+                        darkMode 
+                          ? 'bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent' 
+                          : 'bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'
+                      }`}>
+                        Get in Touch
+                      </h2>
+                    </motion.div>
+                    
+                    <div className="grid md:grid-cols-2 gap-8">
+                      {/* Contact Form */}
+                      <motion.div 
+                        className={`rounded-2xl p-8 transition-all duration-500 ${
+                          darkMode 
+                            ? 'bg-gray-900/50 border border-gray-800 shadow-xl shadow-cyan-500/10' 
+                            : 'bg-white border border-gray-200 shadow-xl shadow-blue-500/10'
+                        }`}
+                        whileHover={{ scale: 1.02, y: -5 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                      >
+                        <form className="space-y-6">
+                          {[
+                            { id: 'name', label: 'Name', type: 'text', value: formData.name },
+                            { id: 'email', label: 'Email', type: 'email', value: formData.email }
+                          ].map((field, index) => (
+                            <motion.div
+                              key={field.id}
+                              initial={{ opacity: 0, y: 20 }}
+                              whileInView={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.1 + index * 0.1 }}
+                            >
+                              <label htmlFor={field.id} className={`block text-sm font-medium mb-2 ${
+                                darkMode ? 'text-gray-300' : 'text-gray-700'
+                              }`}>
+                                {field.label}
+                              </label>
+                              <input
+                                type={field.type}
+                                id={field.id}
+                                className={`w-full rounded-xl p-4 transition-all duration-300 ${
+                                  darkMode
+                                    ? 'bg-gray-800 border-gray-700 focus:border-cyan-400 text-white placeholder-gray-400'
+                                    : 'bg-gray-50 border-gray-300 focus:border-blue-500 text-gray-900 placeholder-gray-500'
+                                } border-2 focus:ring-4 focus:ring-opacity-20 outline-none`}
+                                value={field.value}
+                                onChange={(e) => setFormData({ ...formData, [field.id]: e.target.value })}
+                              />
+                            </motion.div>
+                          ))}
+                          
+                          <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.3 }}
+                          >
+                            <label htmlFor="message" className={`block text-sm font-medium mb-2 ${
+                              darkMode ? 'text-gray-300' : 'text-gray-700'
+                            }`}>
+                              Message
+                            </label>
+                            <textarea
+                              id="message"
+                              rows={4}
+                              className={`w-full rounded-xl p-4 transition-all duration-300 resize-none ${
+                                darkMode
+                                  ? 'bg-gray-800 border-gray-700 focus:border-cyan-400 text-white placeholder-gray-400'
+                                  : 'bg-gray-50 border-gray-300 focus:border-blue-500 text-gray-900 placeholder-gray-500'
+                              } border-2 focus:ring-4 focus:ring-opacity-20 outline-none`}
+                              value={formData.message}
+                              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                            />
+                          </motion.div>
+                          
+                          <motion.button
+                            type="submit"
+                            className={`w-full py-4 rounded-xl font-semibold transition-all duration-300 ${
+                              darkMode
+                                ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50'
+                                : 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50'
+                            }`}
+                            whileHover={{ scale: 1.02, y: -2 }}
+                            whileTap={{ scale: 0.98 }}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.4 }}
+                          >
+                            Send Message
+                          </motion.button>
+                        </form>
+                      </motion.div>
+
+                      {/* Contact Info */}
+                      <motion.div 
+                        className={`rounded-2xl p-8 transition-all duration-500 ${
+                          darkMode 
+                            ? 'bg-gray-900/50 border border-gray-800 shadow-xl shadow-cyan-500/10' 
+                            : 'bg-white border border-gray-200 shadow-xl shadow-blue-500/10'
+                        }`}
+                        whileHover={{ scale: 1.02, y: -5 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                      >
+                        <div className="space-y-6">
+                          {[
+                            { icon: Mail, label: "anmolmittal0987@gmail.com", href: "mailto:anmolmittal0987@gmail.com" },
+                            { icon: Mail, label: "+91 7024511800", href: "tel:+917024511800" }
+                          ].map((contact, index) => (
+                            <motion.a
+                              key={index}
+                              href={contact.href}
+                              className={`flex items-center gap-4 p-4 rounded-xl transition-all duration-300 ${
+                                darkMode
+                                  ? 'hover:bg-cyan-400/10 text-gray-300 hover:text-cyan-400'
+                                  : 'hover:bg-blue-50 text-gray-600 hover:text-blue-600'
+                              }`}
+                              whileHover={{ x: 10, scale: 1.02 }}
+                              initial={{ opacity: 0, x: -20 }}
+                              whileInView={{ opacity: 1, x: 0 }}
+                              transition={{ delay: 0.1 + index * 0.1 }}
+                            >
+                              <contact.icon className={`w-6 h-6 ${
+                                darkMode ? 'text-cyan-400' : 'text-blue-600'
+                              }`} />
+                              <span className="font-medium">{contact.label}</span>
+                            </motion.a>
+                          ))}
+                        </div>
+                      </motion.div>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-2">Email</label>
-                  <input
-                    type="email"
-                    id="email"
-                    className={`w-full rounded-lg p-3 ${darkMode
-                      ? 'bg-gray-700 border-gray-600 focus:border-blue-500'
-                      : 'bg-gray-50 border-gray-300 focus:border-blue-500'
-                      } border focus:ring-2 focus:ring-blue-500/20 outline-none`}
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium mb-2">Message</label>
-                  <textarea
-                    id="message"
-                    rows={4}
-                    className={`w-full rounded-lg p-3 ${darkMode
-                      ? 'bg-gray-700 border-gray-600 focus:border-blue-500'
-                      : 'bg-gray-50 border-gray-300 focus:border-blue-500'
-                      } border focus:ring-2 focus:ring-blue-500/20 outline-none`}
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  ></textarea>
-                </div>
-                <button
-                  type="submit"
-                  className="w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 transition-colors flex items-center justify-center gap-2"
+              </AnimatedSection>
+            </div>
+
+            {/* Footer */}
+            <motion.footer
+              className={`mt-20 py-8 border-t transition-all duration-500 ${
+                darkMode 
+                  ? 'border-gray-800 bg-black/50' 
+                  : 'border-gray-200 bg-gray-50/50'
+              }`}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <div className="container mx-auto px-6 text-center">
+                <motion.p 
+                  className="flex items-center justify-center gap-2 text-lg"
+                  whileHover={{ scale: 1.05 }}
                 >
-                  <Send className="w-4 h-4" />
-                  Send Message
-                </button>
+                  © 2024 Anmol Mittal. Built with 
+                  <motion.span
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ duration: 1, repeat: Infinity }}
+                  >
+                    <Heart className="w-5 h-5 text-red-500" />
+                  </motion.span>
+                  using React & Tailwind CSS
+                </motion.p>
               </div>
-              <div className={`rounded-lg p-6 ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-lg`}>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <Mail className="w-5 h-5 text-blue-500" />
-                    <a href="mailto:anmolmittal0987@gmail.com" className="hover:text-blue-500 transition-colors">
-                      anmolmittal0987@gmail.com
-                    </a>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Phone className="w-5 h-5 text-blue-500" />
-                    <a href="tel:+917024511800" className="hover:text-blue-500 transition-colors">
-                      +91 7024511800
-                    </a>
-                  </div>
-                  <div className="pt-4 space-y-4">
-                    <a href="https://github.com/Anmol0987" className="flex items-center gap-3 hover:text-blue-500 transition-colors">
-                      <Github className="w-5 h-5" />
-                      GitHub
-                    </a>
-                    <a href="https://www.linkedin.com/in/anmol-mittal-b53562229" className="flex items-center gap-3 hover:text-blue-500 transition-colors">
-                      <Linkedin className="w-5 h-5" />
-                      LinkedIn
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className={`mt-20 py-6 ${darkMode ? 'border-t border-gray-800' : 'border-t'}`}>
-        <div className="container mx-auto px-6 text-center">
-          <p className="flex items-center justify-center gap-2">
-            © 2024 Anmol Mittal. Built with <Heart className="w-4 h-4 text-red-500" /> using React & Tailwind CSS
-          </p>
-        </div>
-      </div>
+            </motion.footer>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
