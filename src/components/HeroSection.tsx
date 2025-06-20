@@ -8,7 +8,7 @@ interface HeroSectionProps {
 
 export default function HeroSection({ darkMode }: HeroSectionProps) {
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
+    <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16 lg:pt-20">
       {/* Geometric background */}
       <div className="absolute inset-0 pointer-events-none">
         <div className={`absolute inset-0 ${
@@ -17,8 +17,8 @@ export default function HeroSection({ darkMode }: HeroSectionProps) {
             : 'bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.1),transparent_50%)]'
         }`} />
         
-        {/* Floating geometric elements */}
-        {[...Array(15)].map((_, i) => (
+        {/* Floating geometric elements - responsive count */}
+        {[...Array(window.innerWidth < 768 ? 8 : 15)].map((_, i) => (
           <motion.div
             key={i}
             className={`absolute border ${
@@ -27,8 +27,8 @@ export default function HeroSection({ darkMode }: HeroSectionProps) {
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              width: `${20 + Math.random() * 40}px`,
-              height: `${20 + Math.random() * 40}px`,
+              width: `${15 + Math.random() * 25}px`,
+              height: `${15 + Math.random() * 25}px`,
               clipPath: i % 3 === 0 
                 ? 'polygon(0 0, 100% 0, 85% 100%, 0 100%)'
                 : i % 3 === 1
@@ -49,13 +49,13 @@ export default function HeroSection({ darkMode }: HeroSectionProps) {
         ))}
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-5xl mx-auto text-center">
           <AnimatedSection delay={0.2}>
-            <div className="space-y-8">
+            <div className="space-y-6 sm:space-y-8 lg:space-y-10">
               {/* Status indicator */}
               <motion.div
-                className="flex items-center justify-center gap-3"
+                className="flex items-center justify-center gap-2 sm:gap-3"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
@@ -67,17 +67,17 @@ export default function HeroSection({ darkMode }: HeroSectionProps) {
                   animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
                   transition={{ duration: 2, repeat: Infinity }}
                 />
-                <span className={`text-sm font-mono tracking-wider ${
+                <span className={`text-xs sm:text-sm font-mono tracking-wider ${
                   darkMode ? 'text-cyan-400' : 'text-green-600'
                 }`}>
                   AVAILABLE FOR WORK
                 </span>
               </motion.div>
 
-              {/* Main heading */}
-              <div className="space-y-6">
+              {/* Main heading - Responsive typography */}
+              <div className="space-y-4 sm:space-y-6">
                 <motion.h1
-                  className={`text-6xl lg:text-8xl font-bold leading-tight ${
+                  className={`text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-tight ${
                     darkMode 
                       ? 'text-white' 
                       : 'text-gray-900'
@@ -103,7 +103,7 @@ export default function HeroSection({ darkMode }: HeroSectionProps) {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1, duration: 0.8 }}
                 >
-                  <div className={`inline-block px-6 py-3 ${
+                  <div className={`inline-block px-4 sm:px-6 py-2 sm:py-3 ${
                     darkMode 
                       ? 'bg-cyan-400/10 border border-cyan-400/30' 
                       : 'bg-blue-50 border border-blue-200'
@@ -111,18 +111,18 @@ export default function HeroSection({ darkMode }: HeroSectionProps) {
                   style={{
                     clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))'
                   }}>
-                    <span className={`text-xl font-mono tracking-wider ${
+                    <span className={`text-sm sm:text-lg lg:text-xl font-mono tracking-wider ${
                       darkMode ? 'text-cyan-400' : 'text-blue-600'
                     }`}>
-                      FULL_STACK_DEVELOPER.EXE
+                      <span className="hidden sm:inline">FULL_STACK_</span>DEVELOPER<span className="hidden sm:inline">.EXE</span>
                     </span>
                   </div>
                 </motion.div>
               </div>
 
-              {/* Description */}
+              {/* Description - Responsive text */}
               <motion.p
-                className={`text-xl leading-relaxed max-w-3xl mx-auto ${
+                className={`text-base sm:text-lg lg:text-xl leading-relaxed max-w-2xl lg:max-w-3xl mx-auto px-4 ${
                   darkMode ? 'text-gray-300' : 'text-gray-600'
                 }`}
                 initial={{ opacity: 0, y: 20 }}
@@ -130,19 +130,19 @@ export default function HeroSection({ darkMode }: HeroSectionProps) {
                 transition={{ delay: 1.3, duration: 0.8 }}
               >
                 Specialized in MERN stack development with expertise in React, Node.js, and modern web technologies. 
-                Currently pursuing B.Tech in CSE with Cyber Security focus.
+                <span className="hidden sm:inline"> Currently pursuing B.Tech in CSE with Cyber Security focus.</span>
               </motion.p>
 
-              {/* CTA Buttons */}
+              {/* CTA Buttons - Responsive layout */}
               <motion.div
-                className="flex flex-wrap justify-center gap-6"
+                className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 px-4"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.6, duration: 0.8 }}
               >
                 <motion.button
                   onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-                  className={`group flex items-center gap-3 px-8 py-4 font-semibold tracking-wide transition-all duration-300 ${
+                  className={`group flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 font-semibold tracking-wide transition-all duration-300 ${
                     darkMode
                       ? 'bg-cyan-400 text-black hover:bg-cyan-300'
                       : 'bg-blue-600 text-white hover:bg-blue-700'
@@ -158,7 +158,7 @@ export default function HeroSection({ darkMode }: HeroSectionProps) {
                     animate={{ x: [0, 5, 0] }}
                     transition={{ duration: 1.5, repeat: Infinity }}
                   >
-                    <ArrowRight className="w-5 h-5" />
+                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
                   </motion.div>
                 </motion.button>
 
@@ -166,7 +166,7 @@ export default function HeroSection({ darkMode }: HeroSectionProps) {
                   href="https://drive.google.com/file/d/1WbzWr4NXvZ8HsgJHiftckIgdC8CKxWMD/view?usp=sharing"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`flex items-center gap-3 px-8 py-4 font-semibold tracking-wide border-2 transition-all duration-300 ${
+                  className={`flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 font-semibold tracking-wide border-2 transition-all duration-300 ${
                     darkMode
                       ? 'border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black'
                       : 'border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white'
@@ -177,14 +177,14 @@ export default function HeroSection({ darkMode }: HeroSectionProps) {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Download className="w-5 h-5" />
-                  RESUME.PDF
+                  <Download className="w-4 h-4 sm:w-5 sm:h-5" />
+                  RESUME<span className="hidden sm:inline">.PDF</span>
                 </motion.a>
               </motion.div>
 
-              {/* Social Links */}
+              {/* Social Links - Responsive sizing */}
               <motion.div
-                className="flex justify-center gap-6 pt-6"
+                className="flex justify-center gap-4 sm:gap-6 pt-4 sm:pt-6"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.9, duration: 0.8 }}
@@ -198,7 +198,7 @@ export default function HeroSection({ darkMode }: HeroSectionProps) {
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`group p-4 border transition-all duration-300 ${
+                    className={`group p-3 sm:p-4 border transition-all duration-300 ${
                       darkMode
                         ? 'border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/10 hover:border-cyan-400'
                         : 'border-blue-200 text-blue-600 hover:bg-blue-50 hover:border-blue-400'
@@ -209,14 +209,14 @@ export default function HeroSection({ darkMode }: HeroSectionProps) {
                     whileHover={{ scale: 1.1, y: -2 }}
                     whileTap={{ scale: 0.9 }}
                   >
-                    <Icon className="w-6 h-6" />
+                    <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
                   </motion.a>
                 ))}
               </motion.div>
 
-              {/* Tech stack indicators - moved from image section */}
+              {/* Tech stack indicators - Responsive grid */}
               <motion.div
-                className="flex justify-center gap-4 pt-8"
+                className="flex flex-wrap justify-center gap-2 sm:gap-4 pt-6 sm:pt-8 px-4"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 2.2, duration: 0.8 }}
@@ -224,7 +224,7 @@ export default function HeroSection({ darkMode }: HeroSectionProps) {
                 {['REACT', 'NODE', 'MONGO', 'EXPRESS'].map((tech, index) => (
                   <motion.div
                     key={tech}
-                    className={`px-4 py-2 text-sm font-mono tracking-wider ${
+                    className={`px-3 sm:px-4 py-1 sm:py-2 text-xs sm:text-sm font-mono tracking-wider ${
                       darkMode 
                         ? 'bg-cyan-400/10 border border-cyan-400/30 text-cyan-400' 
                         : 'bg-blue-50 border border-blue-200 text-blue-600'

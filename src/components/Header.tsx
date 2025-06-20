@@ -14,6 +14,15 @@ export default function Header({ darkMode, setDarkMode, activeTab, setActiveTab 
 
   const navItems = ['about', 'skills', 'projects', 'experience', 'contact'];
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+    setActiveTab(sectionId);
+    setMobileMenuOpen(false);
+  };
+
   return (
     <motion.header
       className={`fixed top-0 left-0 right-0 z-50 ${
@@ -26,43 +35,39 @@ export default function Header({ darkMode, setDarkMode, activeTab, setActiveTab 
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo with embedded design */}
+        <div className="flex items-center justify-between h-16 lg:h-20">
+          {/* Logo with avatar and embedded design */}
           <motion.div 
             className="flex items-center gap-3"
             whileHover={{ scale: 1.02 }}
             transition={{ type: "spring", stiffness: 400, damping: 10 }}
           >
-            <div className="relative">
+            {/* Avatar */}
+            <motion.div
+              className="relative"
+              whileHover={{ scale: 1.1 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <div className={`w-10 h-10 lg:w-12 lg:h-12 rounded-full overflow-hidden border-2 ${
+                darkMode ? 'border-cyan-400/50' : 'border-blue-500/50'
+              }`}>
+                <img
+                  src="https://res.cloudinary.com/dvwmoh776/image/upload/v1738343815/raftj45nn8wrauknjxyd.png"
+                  alt="Anmol Mittal"
+                  className="w-full h-full object-cover"
+                />
+              </div>
               <motion.div
-                className={`p-2 ${
-                  darkMode 
-                    ? 'bg-cyan-400/10 border border-cyan-400/30' 
-                    : 'bg-blue-50 border border-blue-200'
+                className={`absolute -bottom-1 -right-1 w-3 h-3 lg:w-4 lg:h-4 rounded-full ${
+                  darkMode ? 'bg-cyan-400' : 'bg-green-500'
                 }`}
-                style={{
-                  clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))'
-                }}
-                animate={{ 
-                  boxShadow: darkMode 
-                    ? ["0 0 0 rgba(0,255,255,0.3)", "0 0 20px rgba(0,255,255,0.6)", "0 0 0 rgba(0,255,255,0.3)"]
-                    : ["0 0 0 rgba(59,130,246,0.3)", "0 0 15px rgba(59,130,246,0.5)", "0 0 0 rgba(59,130,246,0.3)"]
-                }}
-                transition={{ duration: 3, repeat: Infinity }}
-              >
-                <Terminal className={`w-5 h-5 ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
-              </motion.div>
-              <motion.div
-                className={`absolute -top-1 -right-1 w-2 h-2 ${
-                  darkMode ? 'bg-cyan-400' : 'bg-blue-500'
-                }`}
-                animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
+                animate={{ scale: [1, 1.3, 1], opacity: [1, 0.7, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
               />
-            </div>
+            </motion.div>
             
             <div className="relative">
-              <span className={`text-lg font-bold tracking-wider ${
+              <span className={`text-lg lg:text-xl font-bold tracking-wider ${
                 darkMode ? 'text-white' : 'text-gray-900'
               }`}>
                 ANMOL.DEV
@@ -82,11 +87,11 @@ export default function Header({ darkMode, setDarkMode, activeTab, setActiveTab 
 
           {/* Desktop Navigation with embedded style */}
           <div className="flex items-center gap-2">
-            <nav className="hidden md:flex items-center gap-1">
+            <nav className="hidden lg:flex items-center gap-1">
               {navItems.map((item, index) => (
                 <motion.button
                   key={item}
-                  onClick={() => setActiveTab(item)}
+                  onClick={() => scrollToSection(item)}
                   className={`relative px-4 py-2 text-sm font-medium tracking-wide transition-all duration-300 ${
                     activeTab === item
                       ? darkMode
@@ -153,7 +158,7 @@ export default function Header({ darkMode, setDarkMode, activeTab, setActiveTab 
 
             {/* Mobile Menu Button */}
             <motion.button
-              className={`md:hidden p-2 ml-2 ${
+              className={`lg:hidden p-2 ml-2 ${
                 darkMode ? 'text-cyan-400' : 'text-blue-600'
               }`}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -166,7 +171,7 @@ export default function Header({ darkMode, setDarkMode, activeTab, setActiveTab 
 
         {/* Mobile Menu */}
         <motion.div
-          className={`md:hidden overflow-hidden ${
+          className={`lg:hidden overflow-hidden ${
             darkMode ? 'bg-black/95 border-t border-cyan-400/20' : 'bg-white/95 border-t border-blue-200'
           }`}
           initial={{ height: 0, opacity: 0 }}
@@ -180,10 +185,7 @@ export default function Header({ darkMode, setDarkMode, activeTab, setActiveTab 
             {navItems.map((item, index) => (
               <motion.button
                 key={item}
-                onClick={() => {
-                  setActiveTab(item);
-                  setMobileMenuOpen(false);
-                }}
+                onClick={() => scrollToSection(item)}
                 className={`block w-full text-left px-4 py-3 text-sm font-medium tracking-wide transition-all duration-300 ${
                   activeTab === item
                     ? darkMode
@@ -202,7 +204,7 @@ export default function Header({ darkMode, setDarkMode, activeTab, setActiveTab 
               </motion.button>
             ))}
           </nav>
-        </motion.div>
+        </div>
       </div>
     </motion.header>
   );

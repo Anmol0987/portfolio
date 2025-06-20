@@ -131,18 +131,18 @@ function App() {
             <main className="relative">
               <HeroSection darkMode={darkMode} />
 
-              {/* About Section */}
+              {/* About Section - Responsive padding and layout */}
               <AnimatedSection delay={0.2}>
-                <section id="about" className="py-20 relative">
-                  <div className="container mx-auto px-4">
+                <section id="about" className="py-12 sm:py-16 lg:py-20 relative">
+                  <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="max-w-6xl mx-auto">
                       {/* Section header */}
                       <motion.div 
-                        className="flex items-center gap-4 mb-12"
+                        className="flex items-center gap-3 sm:gap-4 mb-8 sm:mb-12"
                         whileHover={{ x: 10 }}
                         transition={{ type: "spring", stiffness: 400, damping: 10 }}
                       >
-                        <div className={`p-3 ${
+                        <div className={`p-2 sm:p-3 ${
                           darkMode 
                             ? 'bg-cyan-400/10 border border-cyan-400/30' 
                             : 'bg-blue-50 border border-blue-200'
@@ -150,19 +150,19 @@ function App() {
                         style={{
                           clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))'
                         }}>
-                          <User className={`w-6 h-6 ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
+                          <User className={`w-5 h-5 sm:w-6 sm:h-6 ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
                         </div>
-                        <h2 className={`text-4xl font-bold tracking-wide ${
+                        <h2 className={`text-2xl sm:text-3xl lg:text-4xl font-bold tracking-wide ${
                           darkMode ? 'text-white' : 'text-gray-900'
                         }`}>
                           ABOUT_ME.JSON
                         </h2>
                       </motion.div>
                       
-                      <div className="grid lg:grid-cols-2 gap-12">
+                      <div className="grid lg:grid-cols-2 gap-8 sm:gap-12">
                         {/* Main content */}
                         <motion.div 
-                          className={`p-8 transition-all duration-500 ${
+                          className={`p-6 sm:p-8 transition-all duration-500 ${
                             darkMode 
                               ? 'bg-gray-900/50 border border-cyan-400/20' 
                               : 'bg-gray-50 border border-blue-200'
@@ -174,7 +174,7 @@ function App() {
                           transition={{ type: "spring", stiffness: 300, damping: 20 }}
                         >
                           <motion.p 
-                            className={`text-lg leading-relaxed mb-8 ${
+                            className={`text-base sm:text-lg leading-relaxed mb-6 sm:mb-8 ${
                               darkMode ? 'text-gray-300' : 'text-gray-600'
                             }`}
                             initial={{ opacity: 0, y: 20 }}
@@ -186,8 +186,8 @@ function App() {
                             knowledge with practical experience in building modern web applications.
                           </motion.p>
 
-                          {/* Stats */}
-                          <div className="grid grid-cols-2 gap-6">
+                          {/* Stats - Responsive grid */}
+                          <div className="grid grid-cols-2 gap-4 sm:gap-6">
                             {[
                               { label: 'PROJECTS', value: '15+' },
                               { label: 'EXPERIENCE', value: '2+ YRS' },
@@ -196,7 +196,7 @@ function App() {
                             ].map((stat, index) => (
                               <motion.div
                                 key={stat.label}
-                                className={`text-center p-4 ${
+                                className={`text-center p-3 sm:p-4 ${
                                   darkMode 
                                     ? 'bg-black/50 border border-cyan-400/20' 
                                     : 'bg-white border border-blue-200'
@@ -209,7 +209,7 @@ function App() {
                                 transition={{ delay: 0.3 + index * 0.1 }}
                                 whileHover={{ scale: 1.05 }}
                               >
-                                <div className={`text-2xl font-bold ${
+                                <div className={`text-xl sm:text-2xl font-bold ${
                                   darkMode ? 'text-cyan-400' : 'text-blue-600'
                                 }`}>
                                   {stat.value}
@@ -224,20 +224,20 @@ function App() {
                           </div>
                         </motion.div>
 
-                        {/* Education */}
+                        {/* Education - Responsive spacing */}
                         <motion.div
-                          className="space-y-6"
+                          className="space-y-4 sm:space-y-6"
                           initial={{ opacity: 0, x: 20 }}
                           whileInView={{ opacity: 1, x: 0 }}
                           transition={{ delay: 0.3 }}
                         >
-                          <h3 className={`text-2xl font-bold tracking-wide ${
+                          <h3 className={`text-xl sm:text-2xl font-bold tracking-wide ${
                             darkMode ? 'text-white' : 'text-gray-900'
                           }`}>
                             EDUCATION.LOG
                           </h3>
                           
-                          <div className="space-y-4">
+                          <div className="space-y-3 sm:space-y-4">
                             {[
                               {
                                 title: "B.Tech (CSE-Cyber Security)",
@@ -260,7 +260,7 @@ function App() {
                             ].map((edu, index) => (
                               <motion.div
                                 key={index}
-                                className={`p-6 transition-all duration-300 ${
+                                className={`p-4 sm:p-6 transition-all duration-300 ${
                                   darkMode 
                                     ? 'bg-gray-900/30 border border-cyan-400/20 hover:border-cyan-400/40' 
                                     : 'bg-white border border-blue-200 hover:border-blue-400'
@@ -273,7 +273,7 @@ function App() {
                                 whileInView={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.4 + index * 0.1 }}
                               >
-                                <h4 className={`font-bold text-lg tracking-wide ${
+                                <h4 className={`font-bold text-base sm:text-lg tracking-wide ${
                                   darkMode ? 'text-white' : 'text-gray-900'
                                 }`}>
                                   {edu.title}
@@ -298,17 +298,17 @@ function App() {
                 </section>
               </AnimatedSection>
 
-              {/* Skills Section */}
+              {/* Skills Section - Enhanced responsiveness */}
               <AnimatedSection delay={0.3}>
-                <section id="skills" className="py-20 relative">
-                  <div className="container mx-auto px-4">
+                <section id="skills" className="py-12 sm:py-16 lg:py-20 relative">
+                  <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="max-w-7xl mx-auto">
                       <motion.div 
-                        className="flex items-center gap-4 mb-12"
+                        className="flex items-center gap-3 sm:gap-4 mb-8 sm:mb-12"
                         whileHover={{ x: 10 }}
                         transition={{ type: "spring", stiffness: 400, damping: 10 }}
                       >
-                        <div className={`p-3 ${
+                        <div className={`p-2 sm:p-3 ${
                           darkMode 
                             ? 'bg-cyan-400/10 border border-cyan-400/30' 
                             : 'bg-blue-50 border border-blue-200'
@@ -316,16 +316,16 @@ function App() {
                         style={{
                           clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))'
                         }}>
-                          <Code2 className={`w-6 h-6 ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
+                          <Code2 className={`w-5 h-5 sm:w-6 sm:h-6 ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
                         </div>
-                        <h2 className={`text-4xl font-bold tracking-wide ${
+                        <h2 className={`text-2xl sm:text-3xl lg:text-4xl font-bold tracking-wide ${
                           darkMode ? 'text-white' : 'text-gray-900'
                         }`}>
                           SKILLS.ARRAY
                         </h2>
                       </motion.div>
                       
-                      <div className="space-y-16">
+                      <div className="space-y-12 sm:space-y-16">
                         {Object.entries(skillCategories).map(([categoryKey, category], categoryIndex) => (
                           <motion.div
                             key={categoryKey}
@@ -333,8 +333,8 @@ function App() {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ delay: categoryIndex * 0.2 }}
                           >
-                            <div className="flex items-center gap-3 mb-8">
-                              <h3 className={`text-2xl font-bold tracking-wider uppercase ${
+                            <div className="flex items-center gap-3 mb-6 sm:mb-8">
+                              <h3 className={`text-xl sm:text-2xl font-bold tracking-wider uppercase ${
                                 darkMode ? 'text-white' : 'text-gray-900'
                               }`}>
                                 {category.title}
@@ -351,7 +351,8 @@ function App() {
                               />
                             </div>
                             
-                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                            {/* Responsive grid - 2 cols on mobile, 3 on tablet, 4-5 on desktop */}
+                            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6">
                               {category.skills.map((skill, index) => (
                                 <SkillCard
                                   key={skill.name}
@@ -372,17 +373,17 @@ function App() {
                 </section>
               </AnimatedSection>
 
-              {/* Projects Section */}
+              {/* Projects Section - Enhanced responsiveness */}
               <AnimatedSection delay={0.4}>
-                <section id="projects" className="py-20 relative">
-                  <div className="container mx-auto px-4">
+                <section id="projects" className="py-12 sm:py-16 lg:py-20 relative">
+                  <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="max-w-7xl mx-auto">
                       <motion.div 
-                        className="flex items-center gap-4 mb-12"
+                        className="flex items-center gap-3 sm:gap-4 mb-8 sm:mb-12"
                         whileHover={{ x: 10 }}
                         transition={{ type: "spring", stiffness: 400, damping: 10 }}
                       >
-                        <div className={`p-3 ${
+                        <div className={`p-2 sm:p-3 ${
                           darkMode 
                             ? 'bg-cyan-400/10 border border-cyan-400/30' 
                             : 'bg-blue-50 border border-blue-200'
@@ -390,16 +391,16 @@ function App() {
                         style={{
                           clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))'
                         }}>
-                          <BookOpen className={`w-6 h-6 ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
+                          <BookOpen className={`w-5 h-5 sm:w-6 sm:h-6 ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
                         </div>
-                        <h2 className={`text-4xl font-bold tracking-wide ${
+                        <h2 className={`text-2xl sm:text-3xl lg:text-4xl font-bold tracking-wide ${
                           darkMode ? 'text-white' : 'text-gray-900'
                         }`}>
                           PROJECTS.MAP()
                         </h2>
                       </motion.div>
                       
-                      <div className="space-y-8">
+                      <div className="space-y-6 sm:space-y-8">
                         {projects.map((project, index) => (
                           <ProjectCard
                             key={index}
@@ -414,17 +415,17 @@ function App() {
                 </section>
               </AnimatedSection>
 
-              {/* Experience Section */}
+              {/* Experience Section - Responsive improvements */}
               <AnimatedSection delay={0.5}>
-                <section id='experience' className="py-20 relative">
-                  <div className="container mx-auto px-4">
+                <section id='experience' className="py-12 sm:py-16 lg:py-20 relative">
+                  <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="max-w-6xl mx-auto">
                       <motion.div 
-                        className="flex items-center gap-4 mb-12"
+                        className="flex items-center gap-3 sm:gap-4 mb-8 sm:mb-12"
                         whileHover={{ x: 10 }}
                         transition={{ type: "spring", stiffness: 400, damping: 10 }}
                       >
-                        <div className={`p-3 ${
+                        <div className={`p-2 sm:p-3 ${
                           darkMode 
                             ? 'bg-cyan-400/10 border border-cyan-400/30' 
                             : 'bg-blue-50 border border-blue-200'
@@ -432,9 +433,9 @@ function App() {
                         style={{
                           clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))'
                         }}>
-                          <Briefcase className={`w-6 h-6 ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
+                          <Briefcase className={`w-5 h-5 sm:w-6 sm:h-6 ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
                         </div>
-                        <h2 className={`text-4xl font-bold tracking-wide ${
+                        <h2 className={`text-2xl sm:text-3xl lg:text-4xl font-bold tracking-wide ${
                           darkMode ? 'text-white' : 'text-gray-900'
                         }`}>
                           EXPERIENCE.PUSH()
@@ -442,7 +443,7 @@ function App() {
                       </motion.div>
                       
                       <motion.div 
-                        className={`p-8 transition-all duration-500 ${
+                        className={`p-6 sm:p-8 transition-all duration-500 ${
                           darkMode 
                             ? 'bg-gray-900/30 border border-cyan-400/20' 
                             : 'bg-gray-50 border border-blue-200'
@@ -458,7 +459,7 @@ function App() {
                           whileInView={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.2 }}
                         >
-                          <div className="flex items-start gap-4 mb-6">
+                          <div className="flex items-start gap-3 sm:gap-4 mb-4 sm:mb-6">
                             <div className={`p-2 ${
                               darkMode 
                                 ? 'bg-cyan-400/10 border border-cyan-400/30' 
@@ -467,15 +468,15 @@ function App() {
                             style={{
                               clipPath: 'polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px))'
                             }}>
-                              <Terminal className={`w-5 h-5 ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
+                              <Terminal className={`w-4 h-4 sm:w-5 sm:h-5 ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
                             </div>
                             <div>
-                              <h3 className={`text-2xl font-bold tracking-wide ${
+                              <h3 className={`text-xl sm:text-2xl font-bold tracking-wide ${
                                 darkMode ? 'text-white' : 'text-gray-900'
                               }`}>
                                 REACT_DEVELOPER_INTERN
                               </h3>
-                              <p className={`text-lg font-mono ${
+                              <p className={`text-base sm:text-lg font-mono ${
                                 darkMode ? 'text-cyan-400' : 'text-blue-600'
                               }`}>
                                 Abstinent Research & Technologies • Sep 2024 - Nov 2024
@@ -483,7 +484,7 @@ function App() {
                             </div>
                           </div>
                           
-                          <div className="grid md:grid-cols-2 gap-6">
+                          <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
                             {[
                               "Developed reusable React and React Native components",
                               "Implemented React Flow for workflow visualization in the Vibe project",
@@ -492,7 +493,7 @@ function App() {
                             ].map((item, index) => (
                               <motion.div
                                 key={index}
-                                className={`flex items-start gap-3 p-4 ${
+                                className={`flex items-start gap-3 p-3 sm:p-4 ${
                                   darkMode 
                                     ? 'bg-black/30 border border-cyan-400/20' 
                                     : 'bg-white border border-blue-200'
@@ -523,17 +524,17 @@ function App() {
                 </section>
               </AnimatedSection>
 
-              {/* Contact Section */}
+              {/* Contact Section - Enhanced responsiveness */}
               <AnimatedSection delay={0.6}>
-                <section id='contact' className="py-20 relative">
-                  <div className="container mx-auto px-4">
+                <section id='contact' className="py-12 sm:py-16 lg:py-20 relative">
+                  <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="max-w-6xl mx-auto">
                       <motion.div 
-                        className="flex items-center gap-4 mb-12"
+                        className="flex items-center gap-3 sm:gap-4 mb-8 sm:mb-12"
                         whileHover={{ x: 10 }}
                         transition={{ type: "spring", stiffness: 400, damping: 10 }}
                       >
-                        <div className={`p-3 ${
+                        <div className={`p-2 sm:p-3 ${
                           darkMode 
                             ? 'bg-cyan-400/10 border border-cyan-400/30' 
                             : 'bg-blue-50 border border-blue-200'
@@ -541,19 +542,19 @@ function App() {
                         style={{
                           clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))'
                         }}>
-                          <Mail className={`w-6 h-6 ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
+                          <Mail className={`w-5 h-5 sm:w-6 sm:h-6 ${darkMode ? 'text-cyan-400' : 'text-blue-600'}`} />
                         </div>
-                        <h2 className={`text-4xl font-bold tracking-wide ${
+                        <h2 className={`text-2xl sm:text-3xl lg:text-4xl font-bold tracking-wide ${
                           darkMode ? 'text-white' : 'text-gray-900'
                         }`}>
                           CONTACT.INIT()
                         </h2>
                       </motion.div>
                       
-                      <div className="grid lg:grid-cols-2 gap-12">
+                      <div className="grid lg:grid-cols-2 gap-8 sm:gap-12">
                         {/* Contact Form */}
                         <motion.div 
-                          className={`p-8 transition-all duration-500 ${
+                          className={`p-6 sm:p-8 transition-all duration-500 ${
                             darkMode 
                               ? 'bg-gray-900/30 border border-cyan-400/20' 
                               : 'bg-gray-50 border border-blue-200'
@@ -564,7 +565,7 @@ function App() {
                           whileHover={{ y: -5 }}
                           transition={{ type: "spring", stiffness: 300, damping: 20 }}
                         >
-                          <form className="space-y-6">
+                          <form className="space-y-4 sm:space-y-6">
                             {[
                               { id: 'name', label: 'NAME', type: 'text', value: formData.name },
                               { id: 'email', label: 'EMAIL', type: 'email', value: formData.email }
@@ -575,7 +576,7 @@ function App() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.1 + index * 0.1 }}
                               >
-                                <label htmlFor={field.id} className={`block text-sm font-mono tracking-wider mb-3 ${
+                                <label htmlFor={field.id} className={`block text-sm font-mono tracking-wider mb-2 sm:mb-3 ${
                                   darkMode ? 'text-cyan-400' : 'text-blue-600'
                                 }`}>
                                   {field.label}:
@@ -583,7 +584,7 @@ function App() {
                                 <input
                                   type={field.type}
                                   id={field.id}
-                                  className={`w-full p-4 font-mono transition-all duration-300 ${
+                                  className={`w-full p-3 sm:p-4 font-mono transition-all duration-300 ${
                                     darkMode
                                       ? 'bg-black/50 border border-cyan-400/30 focus:border-cyan-400 text-white placeholder-gray-500'
                                       : 'bg-white border border-blue-200 focus:border-blue-500 text-gray-900 placeholder-gray-400'
@@ -603,7 +604,7 @@ function App() {
                               whileInView={{ opacity: 1, y: 0 }}
                               transition={{ delay: 0.3 }}
                             >
-                              <label htmlFor="message" className={`block text-sm font-mono tracking-wider mb-3 ${
+                              <label htmlFor="message" className={`block text-sm font-mono tracking-wider mb-2 sm:mb-3 ${
                                 darkMode ? 'text-cyan-400' : 'text-blue-600'
                               }`}>
                                 MESSAGE:
@@ -611,7 +612,7 @@ function App() {
                               <textarea
                                 id="message"
                                 rows={5}
-                                className={`w-full p-4 font-mono transition-all duration-300 resize-none ${
+                                className={`w-full p-3 sm:p-4 font-mono transition-all duration-300 resize-none ${
                                   darkMode
                                     ? 'bg-black/50 border border-cyan-400/30 focus:border-cyan-400 text-white placeholder-gray-500'
                                     : 'bg-white border border-blue-200 focus:border-blue-500 text-gray-900 placeholder-gray-400'
@@ -627,7 +628,7 @@ function App() {
                             
                             <motion.button
                               type="submit"
-                              className={`w-full py-4 font-bold tracking-wider transition-all duration-300 ${
+                              className={`w-full py-3 sm:py-4 font-bold tracking-wider transition-all duration-300 ${
                                 darkMode
                                   ? 'bg-cyan-400 text-black hover:bg-cyan-300'
                                   : 'bg-blue-600 text-white hover:bg-blue-700'
@@ -648,25 +649,25 @@ function App() {
 
                         {/* Contact Info */}
                         <motion.div 
-                          className="space-y-8"
+                          className="space-y-6 sm:space-y-8"
                           initial={{ opacity: 0, x: 20 }}
                           whileInView={{ opacity: 1, x: 0 }}
                           transition={{ delay: 0.2 }}
                         >
                           <div>
-                            <h3 className={`text-2xl font-bold tracking-wide mb-6 ${
+                            <h3 className={`text-xl sm:text-2xl font-bold tracking-wide mb-4 sm:mb-6 ${
                               darkMode ? 'text-white' : 'text-gray-900'
                             }`}>
                               GET_IN_TOUCH.ASYNC()
                             </h3>
-                            <p className={`text-lg leading-relaxed ${
+                            <p className={`text-base sm:text-lg leading-relaxed ${
                               darkMode ? 'text-gray-300' : 'text-gray-600'
                             }`}>
                               Ready to collaborate on your next project? Let's build something amazing together.
                             </p>
                           </div>
 
-                          <div className="space-y-4">
+                          <div className="space-y-3 sm:space-y-4">
                             {[
                               { icon: Mail, label: "anmolmittal0987@gmail.com", href: "mailto:anmolmittal0987@gmail.com" },
                               { icon: Mail, label: "+91 7024511800", href: "tel:+917024511800" }
@@ -674,7 +675,7 @@ function App() {
                               <motion.a
                                 key={index}
                                 href={contact.href}
-                                className={`flex items-center gap-4 p-4 transition-all duration-300 ${
+                                className={`flex items-center gap-3 sm:gap-4 p-3 sm:p-4 transition-all duration-300 ${
                                   darkMode
                                     ? 'bg-gray-900/30 border border-cyan-400/20 hover:border-cyan-400/50 text-gray-300 hover:text-cyan-400'
                                     : 'bg-white border border-blue-200 hover:border-blue-400 text-gray-600 hover:text-blue-600'
@@ -699,7 +700,7 @@ function App() {
                                     darkMode ? 'text-cyan-400' : 'text-blue-600'
                                   }`} />
                                 </div>
-                                <span className="font-mono text-sm tracking-wide">{contact.label}</span>
+                                <span className="font-mono text-sm tracking-wide break-all">{contact.label}</span>
                               </motion.a>
                             ))}
                           </div>
@@ -711,9 +712,9 @@ function App() {
               </AnimatedSection>
             </main>
 
-            {/* Footer */}
+            {/* Footer - Responsive improvements */}
             <motion.footer
-              className={`py-8 border-t transition-all duration-500 ${
+              className={`py-6 sm:py-8 border-t transition-all duration-500 ${
                 darkMode 
                   ? 'border-cyan-400/20 bg-black/50' 
                   : 'border-blue-200 bg-gray-50'
@@ -722,21 +723,23 @@ function App() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
-              <div className="container mx-auto px-4 text-center">
+              <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <motion.p 
-                  className={`flex items-center justify-center gap-3 text-lg font-mono tracking-wide ${
+                  className={`flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-base sm:text-lg font-mono tracking-wide ${
                     darkMode ? 'text-gray-300' : 'text-gray-600'
                   }`}
                   whileHover={{ scale: 1.05 }}
                 >
-                  © 2024 ANMOL.DEV • BUILT_WITH 
-                  <motion.span
-                    animate={{ scale: [1, 1.2, 1] }}
-                    transition={{ duration: 1, repeat: Infinity }}
-                  >
-                    <Heart className={`w-5 h-5 ${darkMode ? 'text-cyan-400' : 'text-red-500'}`} />
-                  </motion.span>
-                  USING REACT & TAILWIND
+                  <span>© 2024 ANMOL.DEV • BUILT_WITH</span>
+                  <div className="flex items-center gap-2">
+                    <motion.span
+                      animate={{ scale: [1, 1.2, 1] }}
+                      transition={{ duration: 1, repeat: Infinity }}
+                    >
+                      <Heart className={`w-4 h-4 sm:w-5 sm:h-5 ${darkMode ? 'text-cyan-400' : 'text-red-500'}`} />
+                    </motion.span>
+                    <span>USING REACT & TAILWIND</span>
+                  </div>
                 </motion.p>
               </div>
             </motion.footer>
