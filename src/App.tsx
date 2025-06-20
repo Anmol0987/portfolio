@@ -30,15 +30,18 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [darkMode, setDarkMode] = useState(true);
   const [activeTab, setActiveTab] = useState("about");
-  const formRef = useRef();
+  const formRef = useRef<HTMLFormElement>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
 
-  const sendEmail = (e) => {
+  const sendEmail = (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!formRef.current) {
+      return;
+    }
     emailjs
       .sendForm(
         "service_a5bzgcm", 
