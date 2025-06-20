@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { User, Code2, BookOpen, Briefcase, Mail, Heart, Terminal, Zap } from 'lucide-react';
+import { User, Code2, BookOpen, Briefcase, Mail, Heart, Terminal, Zap, Database, Globe, Smartphone, Server, Palette, Shield } from 'lucide-react';
 
 // Components
 import LoadingScreen from './components/LoadingScreen';
@@ -8,6 +8,7 @@ import Header from './components/Header';
 import HeroSection from './components/HeroSection';
 import AnimatedSection from './components/AnimatedSection';
 import ProjectCard from './components/ProjectCard';
+import SkillCard from './components/SkillCard';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -15,12 +16,45 @@ function App() {
   const [activeTab, setActiveTab] = useState('about');
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
 
-  const skills = {
-    languages: ["Java", "C", "JavaScript", "TypeScript"],
-    frontend: ["HTML", "CSS", "React.js", "Tailwind CSS", "React Native", "Next.js", "Recoil"],
-    backend: ["Node.js", "Express.js", "JWT", "Web Socket", "Zod validation", "API", "OAuth"],
-    database: ["MongoDB", "PrismaORM", "PostgreSQL"],
-    tools: ["Git", "GitHub", "Docker"]
+  const skillCategories = {
+    languages: {
+      title: "Programming Languages",
+      skills: [
+        { name: "JavaScript", icon: Code2, color: "text-yellow-400", bgColor: "bg-yellow-400/10" },
+        { name: "TypeScript", icon: Code2, color: "text-blue-400", bgColor: "bg-blue-400/10" },
+        { name: "Java", icon: Code2, color: "text-red-500", bgColor: "bg-red-500/10" },
+        { name: "C", icon: Code2, color: "text-gray-400", bgColor: "bg-gray-400/10" }
+      ]
+    },
+    frontend: {
+      title: "Frontend Technologies",
+      skills: [
+        { name: "React.js", icon: Globe, color: "text-cyan-400", bgColor: "bg-cyan-400/10" },
+        { name: "Next.js", icon: Globe, color: "text-white", bgColor: "bg-gray-800/50" },
+        { name: "React Native", icon: Smartphone, color: "text-blue-500", bgColor: "bg-blue-500/10" },
+        { name: "Tailwind CSS", icon: Palette, color: "text-teal-400", bgColor: "bg-teal-400/10" },
+        { name: "HTML/CSS", icon: Globe, color: "text-orange-500", bgColor: "bg-orange-500/10" }
+      ]
+    },
+    backend: {
+      title: "Backend & APIs",
+      skills: [
+        { name: "Node.js", icon: Server, color: "text-green-500", bgColor: "bg-green-500/10" },
+        { name: "Express.js", icon: Server, color: "text-gray-300", bgColor: "bg-gray-300/10" },
+        { name: "JWT", icon: Shield, color: "text-purple-400", bgColor: "bg-purple-400/10" },
+        { name: "WebSocket", icon: Zap, color: "text-yellow-500", bgColor: "bg-yellow-500/10" },
+        { name: "REST API", icon: Globe, color: "text-blue-400", bgColor: "bg-blue-400/10" }
+      ]
+    },
+    database: {
+      title: "Database & Tools",
+      skills: [
+        { name: "MongoDB", icon: Database, color: "text-green-400", bgColor: "bg-green-400/10" },
+        { name: "PostgreSQL", icon: Database, color: "text-blue-600", bgColor: "bg-blue-600/10" },
+        { name: "Prisma ORM", icon: Database, color: "text-indigo-400", bgColor: "bg-indigo-400/10" },
+        { name: "Docker", icon: Server, color: "text-blue-500", bgColor: "bg-blue-500/10" }
+      ]
+    }
   };
 
   const projects = [
@@ -268,7 +302,7 @@ function App() {
               <AnimatedSection delay={0.3}>
                 <section id="skills" className="py-20 relative">
                   <div className="container mx-auto px-4">
-                    <div className="max-w-6xl mx-auto">
+                    <div className="max-w-7xl mx-auto">
                       <motion.div 
                         className="flex items-center gap-4 mb-12"
                         whileHover={{ x: 10 }}
@@ -291,28 +325,19 @@ function App() {
                         </h2>
                       </motion.div>
                       
-                      <div className="grid gap-8">
-                        {Object.entries(skills).map(([category, items], categoryIndex) => (
+                      <div className="space-y-16">
+                        {Object.entries(skillCategories).map(([categoryKey, category], categoryIndex) => (
                           <motion.div
-                            key={category}
-                            className={`p-8 transition-all duration-500 ${
-                              darkMode 
-                                ? 'bg-gray-900/30 border border-cyan-400/20 hover:border-cyan-400/40' 
-                                : 'bg-gray-50 border border-blue-200 hover:border-blue-400'
-                            }`}
-                            style={{
-                              clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px))'
-                            }}
+                            key={categoryKey}
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: categoryIndex * 0.1 }}
-                            whileHover={{ y: -5 }}
+                            transition={{ delay: categoryIndex * 0.2 }}
                           >
-                            <div className="flex items-center gap-3 mb-6">
-                              <h3 className={`text-xl font-bold tracking-wider uppercase ${
+                            <div className="flex items-center gap-3 mb-8">
+                              <h3 className={`text-2xl font-bold tracking-wider uppercase ${
                                 darkMode ? 'text-white' : 'text-gray-900'
                               }`}>
-                                {category}.js
+                                {category.title}
                               </h3>
                               <motion.div
                                 className={`h-px flex-1 ${
@@ -326,26 +351,17 @@ function App() {
                               />
                             </div>
                             
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                              {items.map((skill, index) => (
-                                <motion.div
-                                  key={index}
-                                  className={`p-3 text-center font-mono text-sm tracking-wide transition-all duration-300 cursor-pointer ${
-                                    darkMode
-                                      ? 'bg-black/50 border border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/10 hover:border-cyan-400'
-                                      : 'bg-white border border-blue-200 text-blue-600 hover:bg-blue-50 hover:border-blue-400'
-                                  }`}
-                                  style={{
-                                    clipPath: 'polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px))'
-                                  }}
-                                  initial={{ opacity: 0, scale: 0.8 }}
-                                  whileInView={{ opacity: 1, scale: 1 }}
-                                  transition={{ delay: 0.1 + index * 0.05 }}
-                                  whileHover={{ scale: 1.05, y: -2 }}
-                                  whileTap={{ scale: 0.95 }}
-                                >
-                                  {skill.toUpperCase()}
-                                </motion.div>
+                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                              {category.skills.map((skill, index) => (
+                                <SkillCard
+                                  key={skill.name}
+                                  name={skill.name}
+                                  icon={skill.icon}
+                                  color={skill.color}
+                                  bgColor={skill.bgColor}
+                                  darkMode={darkMode}
+                                  index={index}
+                                />
                               ))}
                             </div>
                           </motion.div>
@@ -383,7 +399,7 @@ function App() {
                         </h2>
                       </motion.div>
                       
-                      <div className="grid md:grid-cols-2 gap-8">
+                      <div className="space-y-8">
                         {projects.map((project, index) => (
                           <ProjectCard
                             key={index}
