@@ -204,7 +204,7 @@ export default function Header({ darkMode, setDarkMode, activeTab, setActiveTab 
               </motion.button>
             ))}
           </nav>
-        </div>
+        </motion.div>
       </div>
     </motion.header>
   );
