@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Terminal } from 'lucide-react';
+import { Terminal, Code2, Zap } from 'lucide-react';
 
 interface LoadingScreenProps {
   onComplete: () => void;
@@ -13,13 +13,11 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8, ease: "easeInOut" }}
     >
-      {/* Geometric background pattern */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,255,255,0.1),transparent_50%)]" />
         <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_49%,rgba(0,255,255,0.03)_50%,transparent_51%)] bg-[length:20px_20px]" />
       </div>
 
-      {/* Floating geometric shapes */}
       <div className="absolute inset-0 pointer-events-none">
         {[...Array(12)].map((_, i) => (
           <motion.div
@@ -46,7 +44,6 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
       </div>
 
       <div className="relative z-10 text-center">
-        {/* Main loading container */}
         <motion.div
           className="relative p-12 border border-cyan-400/30 bg-black/80 backdrop-blur-sm"
           style={{
@@ -56,7 +53,6 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
           animate={{ scale: 1, rotate: 0 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
         >
-          {/* Logo section */}
           <motion.div
             className="flex items-center justify-center gap-4 mb-8"
             initial={{ opacity: 0, y: 20 }}
@@ -98,7 +94,6 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
             </div>
           </motion.div>
 
-          {/* Loading progress */}
           <motion.div
             className="space-y-4"
             initial={{ opacity: 0 }}
@@ -134,7 +129,6 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
           </motion.div>
         </motion.div>
 
-        {/* Floating data streams */}
         <div className="absolute inset-0 pointer-events-none">
           {[...Array(8)].map((_, i) => (
             <motion.div
