@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Github, Linkedin, ExternalLink, Download, Code, Zap, ArrowRight } from 'lucide-react';
+import { Github, Linkedin, Download, ArrowRight } from 'lucide-react';
 import AnimatedSection from './AnimatedSection';
 
 interface HeroSectionProps {

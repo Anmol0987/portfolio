@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { LucideIcon, DivideIcon} from 'lucide-react';
+import { LucideIcon} from 'lucide-react';
 
 interface SkillCardProps {
   name: string;
